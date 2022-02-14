@@ -1,0 +1,33 @@
+body {
+  background-color: #d6efff;
+}
+
+.container {
+  background-color: #fff;
+}
+
+.left-border {
+  border-left: 1px solid #cacaca;
+}
+
+.select-ingred-row {
+  margin: 3%;
+  border: 1px solid #cacaca;
+  border-radius: 15px;
+  min-height: 60px;
+  background-color: #fed18c;
+
+}
+
+img {
+  max-width: 35px;
+  border-radius: 15px;
+}
+
+.btn-pantry {
+  background-color: #fed18c;
+}
+
+.header-img {
+  background-image: url("../assets/images/pantry-header.png");
+}
