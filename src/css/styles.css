@@ -23,3 +23,11 @@ img {
   max-width: 35px;
   border-radius: 15px;
 }
+
+.btn-pantry {
+  background-color: #fed18c;
+}
+
+.header-img {
+  background-image: url("../assets/images/pantry-header.png");
+}
