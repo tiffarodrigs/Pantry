@@ -56,7 +56,7 @@ function getRecipes(response) {
             <div class="card recipe-cards">
               <div class="card-body">
                 <div class="card-title-img">
-                  <img src="${imgCode}" alt="img of recipe">
+                  <img src="${imgCode}" id="recipe-img" alt="img of recipe">
                   <h4 class="heading-4">${recipeName}</h4>
                 </div>
                   Click this card to view the recipe
@@ -72,10 +72,14 @@ function getRecipes(response) {
 
 $("ul#fetched-recipe").on("click", "li", function () {
   let recipe = recipeList.findRecipe(this.id);
-  $("#show-aside").show(1000);
+
+  $("#recipe-sidebar").show();
+
+ 
   $("#ingredients-section").empty();
+
   $("#name").html(recipe.name);
-  $("#recipe-img").attr("src", recipe.img);
+  $("#recipe-detail-img").attr("src", recipe.img);
   $("#instructions").empty();
   for (let i = 0; i < recipe.instructions.length; i++) {
     $("#instructions").append(`<li>${recipe.instructions[i].display_text}</li>`);
@@ -160,7 +164,7 @@ $("ul.category").on("click", "li", function () {
 });
 
 $("#top").click(function () {
-  $("html, body").animate({ scrollTop: 0 }, "slow");
+  $("html, body").animate({ scrollTop: 0 }, "fast");
 });
 
 $("form#ingredientsInput").submit(function (event) {

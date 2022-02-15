@@ -7,13 +7,13 @@
 
 <body>
   <div class="header-img">
-    <img src="/assets/images/header.jpg" alt="header-image">
+    <img src="assets/images/header.jpg" alt="header-image">
   </div>
   <div class="container">
     <div class="row">
-      <div class="col-4">
+      <div class="col-4 scroll-class">
         <form id="ingredientsInput">
-          <h3 class="heading-3">Search by all ingredients</h3>
+          <h4 class="heading-3">Search by all ingredients</h4>
           <input class="form-control" list="all-ingredients" id="ingredient" placeholder="Type to search...">
           <datalist id="all-ingredients">
           </datalist>
@@ -23,10 +23,10 @@
         <hr>
         <div class="row">
           <div class="col-2">
-            <img class="logo" src="/assets/images/listlogo.png" alt="list logo">
+            <img class="logo" src="assets/images/listlogo.png" alt="list logo">
           </div>
           <div class="col-10">
-            <h3 class="heading-3 headingSpace">Shopping List</h3>
+            <h4 class="heading-3 headingSpace">Shopping List</h4>
           </div>
         </div> 
         <ul class="list-group ingredients-inline" id="ingredients-list">
@@ -34,50 +34,50 @@
         <hr>
         <div class="row">
           <div class="col-2">
-            <img class="logo" src="/assets/images/protein-logo.png" alt="protein logo">
+            <img class="logo" src="assets/images/protein-logo.png" alt="protein logo">
           </div>
           <div class="col-10">
-            <h3 class="heading-3 headingSpace">Proteins</h3>
+            <h4 class="heading-3 headingSpace">Proteins</h4>
           </div>
         </div>
         <ul class="category ingredients-inline list-group" id="proteins"></ul>
         <hr>
         <div class="row">
           <div class="col-2">
-            <img class="logo" src="/assets/images/carrot-icon.png" alt="carrot logo">
+            <img class="logo" src="assets/images/carrot-icon.png" alt="carrot logo">
           </div>
           <div class="col-10">
-            <h3 class="heading-3 headingSpace">Vegetables</h3>
+            <h4 class="heading-3 headingSpace">Vegetables</h4>
           </div>
         </div> 
         <ul class="category ingredients-inline list-group" id="vegetables"></ul>
         <hr>
         <div class="row">
           <div class="col-2">
-            <img class="logo" src="/assets/images/spice-logo.png" alt="spice logo">
+            <img class="logo" src="assets/images/spice-logo.png" alt="spice logo">
           </div>
           <div class="col-10">
-            <h3 class="heading-3 headingSpace">Spices & Herbs</h3>
+            <h4 class="heading-3 headingSpace">Spices & Herbs</h4>
           </div>
         </div> 
         <ul class="category ingredients-inline list-group" id="spices"></ul>
         <hr>
         <div class="row">
           <div class="col-2">
-            <img class="logo" src="/assets/images/dairy-logo.png" alt="dairy logo">
+            <img class="logo" src="assets/images/dairy-logo.png" alt="dairy logo">
           </div>
           <div class="col-10">
-            <h3 class="heading-3 headingSpace">Dairy</h3>
+            <h4 class="heading-3 headingSpace">Dairy</h4>
           </div>
         </div> 
         <ul class="category ingredients-inline list-group" id="dairy"></ul>
         <hr>
         <div class="row">
           <div class="col-2">
-            <img class="logo" src="/assets/images/fruit-logo.png" alt="fruit logo">
+            <img class="logo" src="assets/images/fruit-logo.png" alt="fruit logo">
           </div>
           <div class="col-10">
-            <h3 class="heading-3 headingSpace">Fruits</h3>
+            <h4 class="heading-3 headingSpace">Fruits</h4>
           </div>
         </div> 
         <ul class="category ingredients-inline list-group" id="fruits"></ul>
@@ -87,7 +87,7 @@
             <img class="logo" src="assets/images/other-logo.png" alt="other logo">
           </div>
           <div class="col-10">
-            <h3 class="heading-3 headingSpace">Other</h3>
+            <h4 class="heading-3 headingSpace">Other</h4>
           </div>
         </div> 
         <ul class="category ingredients-inline list-group" id="other"></ul>
@@ -95,7 +95,7 @@
         <div id="top">&#8593</div>
       </div>
       <div class="col-8 left-border">
-        <h3 class="heading-3">List of results</h3>
+        <h4 class="heading-3">List of results</h4>
         <div class="recipe-card">
           <ul id="fetched-recipe">
           </ul> 
@@ -107,14 +107,18 @@
         </div>  
       </div>
     </div>
-    <aside id="show-aside">
-      <h1 id="name"></h1>
-      <img id="recipe-img">
-      <ul id="instructions">
-        
-      </ul>
-      <div id="ingredients-section"></div>
-    </aside>
+
+    <div id="recipe-sidebar" class="sidebar">
+      <div id="right">&#8594</div>
+      <div class="sidebar_content">
+        <h1 id="name"></h1>        
+        <img id="recipe-detail-img">
+        <ul id="instructions"></ul>
+        <div id="ingredients-section"></div>
+      </div>
+    </div>
+
   </div>
+
 </body>
 </html>
