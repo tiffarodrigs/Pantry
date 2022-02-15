@@ -221,6 +221,7 @@ li:focus {
 
 #recipe-sidebar {
   display:none;
+
   background-color: #f1f7ee;
   /* min-height: 200px; */
   position: fixed;
@@ -260,3 +261,5 @@ li:focus {
   color: #667c58;
   text-align: center;
 }
+
+
