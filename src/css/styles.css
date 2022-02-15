@@ -59,7 +59,7 @@ body {
   color: white;
   border-radius: 50%;
   position: fixed;
-  right: 50px;
+  left: 50px;
   bottom: 50px;
   display: flex;
   align-items: center;
@@ -222,11 +222,13 @@ li:focus {
 #recipe-sidebar {
   display:none;
   background-color: #f1f7ee;
-  min-height: 200px;
+  /* min-height: 200px; */
   position: fixed;
   top: 0;
   right: 0;
   max-width: 400px;
+  overflow: auto;
+  height: 100%;
 }
 
  .sidebar_content {
