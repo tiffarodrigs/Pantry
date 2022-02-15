@@ -49,33 +49,33 @@ function getRecipes(response) {
 
 function showIngredients() {
   for (let i = 0; i < ingredientsCat.proteins.length; i++) {
-    $("ul#proteins").append(`<li class="list-group-item" id="${removeSpace(ingredientsCat.proteins[i])}">${ingredientsCat.proteins[i]}</li>`);
+    $("ul#proteins").append(`<li class="list-group-item ingredients-inline" id="${removeSpace(ingredientsCat.proteins[i])}">${ingredientsCat.proteins[i]}</li>`);
     if (i > 1 && i % 3 === 0) {
       $("ul#proteins").append(`<br><br>`);
     }
   }
   for (let i = 0; i < ingredientsCat.vegetables.length; i++) {
-    $("#vegetables").append(`<li class="list-group-item" id="${removeSpace(ingredientsCat.vegetables[i])}">${ingredientsCat.vegetables[i]}</li>`);
+    $("#vegetables").append(`<li class="list-group-item ingredients-inline" id="${removeSpace(ingredientsCat.vegetables[i])}">${ingredientsCat.vegetables[i]}</li>`);
     if (i > 1 && i % 3 === 0) {
-      $("ul#proteins").append(`<br><br>`);
+      $("ul#vegetables").append(`<br><br>`);
     }
   }
   for (let i = 0; i < ingredientsCat.spices.length; i++) {
-    $("#spices").append(`<li class="list-group-item" id="${removeSpace(ingredientsCat.spices[i])}">${ingredientsCat.spices[i]}</li>`);
+    $("#spices").append(`<li class="list-group-item ingredients-inline" id="${removeSpace(ingredientsCat.spices[i])}">${ingredientsCat.spices[i]}</li>`);
     if (i > 1 && i % 3 === 0) {
-      $("ul#proteins").append(`<br><br>`);
+      $("ul#spices").append(`<br><br>`);
     }
   }
   for (let i = 0; i < ingredientsCat.dairy.length; i++) {
-    $("#dairy").append(`<li class="list-group-item" id="${removeSpace(ingredientsCat.dairy[i])}">${ingredientsCat.dairy[i]}</li>`);
+    $("#dairy").append(`<li class="list-group-item ingredients-inline" id="${removeSpace(ingredientsCat.dairy[i])}">${ingredientsCat.dairy[i]}</li>`);
     if (i > 1 && i % 3 === 0) {
-      $("ul#proteins").append(`<br><br>`);
+      $("ul#dairy").append(`<br><br>`);
     }
   }
   for (let i = 0; i < ingredientsCat.fruits.length; i++) {
-    $("#fruits").append(`<li class="list-group-item" id="${removeSpace(ingredientsCat.fruits[i])}">${ingredientsCat.fruits[i]}</li>`);
+    $("#fruits").append(`<li class="list-group-item ingredients-inline" id="${removeSpace(ingredientsCat.fruits[i])}">${ingredientsCat.fruits[i]}</li>`);
     if (i > 1 && i % 3 === 0) {
-      $("ul#proteins").append(`<br><br>`);
+      $("ul#fruits").append(`<br><br>`);
     }
   }
 }
@@ -95,7 +95,6 @@ $("ul.fetched-recipe").on("click", "li", function () {
   for (let i = 0; i < recipe.instructions.length; i++) {
     $("#instructions").append(`<li>${recipe.instructions[i].display_text}</li>`);
   }
-});
 
 $("ul.category").on("click", "li", function () {
   $(this).toggleClass("list-group-item-success");

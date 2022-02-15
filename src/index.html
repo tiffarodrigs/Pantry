@@ -7,70 +7,86 @@
 
 <body>
   <div class="header-img">
-    test
+    <img src="assets/images/header.jpg" alt="header-image">
   </div>
   <div class="container">
-    <h1>Pantry</h1>
     <div class="row">
       <div class="col-4">
-        <form action="ingredientsInput">
-          <label for="all-ingredients-list" class="form-label">Full Ingredient List</label>
-          <input class="form-control" list="all-ingredients" id="all-ingredients-list" placeholder="Type to search...">
+        <form id="ingredientsInput">
+          
+          <h3 class="heading-3">Search by all ingredients</h3>
+          <input class="form-control" list="all-ingredients" id="ingredient" placeholder="Type to search...">
           <datalist id="all-ingredients">
-            <option value="Chicken">
-            <option value="Beef">
-            <option value="Pork">
-            <option value="Tofu">
-            <option value="Broccoli">
           </datalist>
+          <button class="btn btn-pantry">Add Items</button>
         </form>
-        <form id="ingredientsProtein">
-          <label for="protein-list" class="form-label">Protein</label>
-          <input class="form-control" list="protein" id="protein-list" placeholder="Type to search...">
-          <datalist id="protein">
-            <option value="Chicken">
-            <option value="Beef">
-          </datalist>
-        </form>
-        <form id="ingredientsVegetable">
-          <label for="vegetable-list" class="form-label">Vegetable</label>
-          <input class="form-control" list="vegetable" id="vegetable-list" placeholder="Type to search...">
-          <datalist id="vegetable">
-            <option value="Carrot">
-            <option value="Celery">
-          </datalist>
-        </form>
-        <form id="ingredientsFruit">
-          <label for="fruit-list" class="form-label">Fruit</label>
-          <input class="form-control" list="fruit" id="fruit-list" placeholder="Type to search...">
-          <datalist id="fruit">
-            <option value="Strawberry">
-            <option value="Apple">
-          </datalist>
-        </form>
-        <form id="ingredientsDairy">
-          <label for="dairy-list" class="form-label">Dairy</label>
-          <input class="form-control" list="dairy" id="dairy-list" placeholder="Type to search...">
-          <datalist id="dairy">
-            <option value="Milk">
-            <option value="Eggs">
-          </datalist>
-        </form>
-        <form id="ingredientsSpices">
-          <label for="spices-list" class="form-label">Spices</label>
-          <input class="form-control" list="spices" id="spices-list" placeholder="Type to search...">
-          <datalist id="spices">
-            <option value="Paprika">
-            <option value="Cumin">
-          </datalist>
-        </form>
-
-        <div class="showError">Sorry this item is not an ingredient</div>
-        <ul id="ingredients-list">
-          <li id="ingredient-1">Tomato</li>
-          <li id="ingredient-2">Chicken</li>
+        <hr>
+        <div class="row">
+          <div class="col-2">
+            <img class="logo" src="assets/images/listlogo.png" alt="list logo">
+          </div>
+          <div class="col-10">
+            <h3 class="heading-3 headingSpace">Shopping List</h3>
+          </div>
+        </div> 
+        <ul class="list-group ingredients-inline" id="ingredients-list">
         </ul>
-        <button class="btn btn-pantry">Search Recipes</button>
+        <hr>
+        <div class="row">
+          <div class="col-2">
+            <img class="logo" src="assets/images/protein-logo.png" alt="protein logo">
+          </div>
+          <div class="col-10">
+            <h3 class="heading-3 headingSpace">Proteins</h3>
+          </div>
+        </div>
+        <ul class="category ingredients-inline list-group" id="proteins"></ul>
+        <hr>
+        <div class="row">
+          <div class="col-2">
+            <img class="logo" src="assets/images/carrot-icon.png" alt="carrot logo">
+          </div>
+          <div class="col-10">
+            <h3 class="heading-3 headingSpace">Vegetables</h3>
+          </div>
+        </div> 
+        <ul class="category ingredients-inline list-group" id="vegetables"></ul>
+        <hr>
+        <div class="row">
+          <div class="col-2">
+            <img class="logo" src="assets/images/spice-logo.png" alt="spice logo">
+          </div>
+          <div class="col-10">
+            <h3 class="heading-3 headingSpace">Spices & Herbs</h3>
+          </div>
+        </div> 
+        <ul class="category ingredients-inline list-group" id="spices"></ul>
+        <hr>
+        <div class="row">
+          <div class="col-2">
+            <img class="logo" src="assets/images/dairy-logo.png" alt="dairy logo">
+          </div>
+          <div class="col-10">
+            <h3 class="heading-3 headingSpace">Dairy</h3>
+          </div>
+        </div> 
+        <ul class="category ingredients-inline list-group" id="dairy"></ul>
+        <hr>
+        <div class="row">
+          <div class="col-2">
+            <img class="logo" src="assets/images/fruit-logo.png" alt="fruit logo">
+          </div>
+          <div class="col-10">
+            <h3 class="heading-3 headingSpace">Fruits</h3>
+          </div>
+        </div> 
+        <ul class="category ingredients-inline list-group" id="fruits"></ul>
+        <hr>
+        <div id="top">&#8593</div>
+        <h3 class="heading-3 headingSpace">Other</h3>
+        <div class="showError">Sorry this item is not an ingredient</div>
+        
+        <button class="btn btn-pantry" id="searchRecipes">Search Recipes</button>
 
 
 
@@ -79,7 +95,77 @@
         
       </div>
       <div class="col-8 left-border">
-
+        <h3 class="heading-3">List of results</h3>
+        <div class="recipe-card">
+          <ul class="fetched-recipe">
+            <li id="recipe-1">
+              <div class="card recipe-cards">
+                <div class="card-body">
+                  <div class="card-title-img">
+                    <img src="https://www.themealdb.com/images/media/meals/n7qnkb1630444129.jpg" alt="img of recipe">
+                    <h4 class="heading-4">Chivito uruguayo</h4>
+                  </div>
+                  Click this card to view the recipe
+                </div>
+              </div>
+            </li>
+            <li id="recipe-2">
+              <div class="card recipe-cards">
+                <div class="card-body">
+                  <div class="card-title-img">
+                    <img src="https://www.themealdb.com/images/media/meals/tnwy8m1628770384.jpg" alt="img of recipe">
+                    <h4 class="heading-4">Croatian Bean Stew Recipe</h4>
+                  </div>
+                  Click this card to view the recipe
+                </div>
+              </div>
+            </li>
+            <li id="recipe-3">
+              <div class="card recipe-cards">
+                <div class="card-body">
+                  <div class="card-title-img">
+                    <img src="https://www.themealdb.com/images/media/meals/pn59o51628769837.jpg" alt="img of recipe">
+                    <h4 class="heading-4">Croatian lamb peka</h4>
+                  </div>
+                  Click this card to view the recipe
+                </div>
+              </div>
+            </li>
+            <li id="recipe-4">
+              <div class="card recipe-cards">
+                <div class="card-body">
+                  <div class="card-title-img">
+                    <img src="https://www.themealdb.com/images/media/meals/nv5lf31628771380.jpg" alt="img of recipe">
+                    <h4 class="heading-4">Fresh sardines</h4>
+                  </div>
+                  Click this card to view the recipe
+                </div>
+              </div>
+            </li>
+            <li id="recipe-5">
+              <div class="card recipe-cards">
+                <div class="card-body">
+                  <div class="card-title-img">
+                    <img src="https://www.themealdb.com/images/media/meals/tkxquw1628771028.jpg" alt="img of recipe">
+                    <h4 class="heading-4">Burek</h4>
+                  </div>
+                  Click this card to view the recipe
+                </div>
+              </div>
+            </li>
+            <li id="recipe-6">
+              <div class="card recipe-cards">
+                <div class="card-body">
+                  <div class="card-title-img">
+                    <img src="https://www.themealdb.com/images/media/meals/n1hcou1628770088.jpg" alt="img of recipe">
+                    <h4 class="heading-4">Traditional Croatian Goulash</h4>
+                  </div>
+                  Click this card to view the recipe
+                </div>
+              </div>
+            </li>
+          </ul> 
+        </div>  
       </div>
     </div>
   </div>
