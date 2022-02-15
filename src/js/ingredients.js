@@ -5,6 +5,7 @@ export default class Ingredient {
     this.spices = ["cinnamon", "cloves", "nutmeg", "cumin", "chilli", "corriander"];
     this.dairy = ["milk", "egg", "cheese"];
     this.fruits = ["apple", "orange", "banana"];
+    this.other = [];
   }
 
   static async getIngredients() {
