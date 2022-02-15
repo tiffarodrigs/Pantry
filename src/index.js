@@ -85,7 +85,7 @@ $(document).ready(function () {
   showIngredients();
 });
 
-$("ul#recipe-list").on("click", "li", function () {
+$("ul.fetched-recipe").on("click", "li", function () {
   console.log(this.id);
   let recipe = recipeList.findRecipe(this.id);
   console.log(recipe);
