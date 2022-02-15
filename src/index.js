@@ -45,12 +45,12 @@ function getRecipes(response) {
           ingredients.push(ingredient.raw_text);
         });
         if (ingredientsSections[i].name === null) {
-          sections.push("Ingredients", ingredients);
+          sections.push(["Ingredients", ingredients]);
         } else {
-          sections.push(ingredientsSections[i].name, ingredients);
+          sections.push([ingredientsSections[i].name, ingredients]);
         }
       }
-      let recipe = new Recipe(recipeName, imgCode, instructions, i, sections);
+      let recipe = new Recipe(recipeName, imgCode, instructions, i, sections); 
       recipeList.addRecipe(recipe);
       let outputStr = `<li id="${i}">
             <div class="card recipe-cards">
@@ -63,7 +63,6 @@ function getRecipes(response) {
                 </div>
               </div>
             </li>`;
-
       $("ul#fetched-recipe").append(outputStr);
     }
   } else {
@@ -74,11 +73,20 @@ function getRecipes(response) {
 $("ul#fetched-recipe").on("click", "li", function () {
   let recipe = recipeList.findRecipe(this.id);
   $("#show-aside").show(1000);
+  $("#ingredients-section").empty();
   $("#name").html(recipe.name);
   $("#recipe-img").attr("src", recipe.img);
   $("#instructions").empty();
   for (let i = 0; i < recipe.instructions.length; i++) {
     $("#instructions").append(`<li>${recipe.instructions[i].display_text}</li>`);
+  }
+  console.log(recipe.sections);
+  for (let i = 0; i < recipe.sections.length; i++) {
+    $("#ingredients-section").append(`<h3>${recipe.sections[i][0]}</h3>`);
+    let ingredients = recipe.sections[i][1];
+    for ( let j =0; j<ingredients.length; j++) {
+      $("#ingredients-section").append(`<p>${ingredients[j]}</p>`);
+    }
   }
 });
 
