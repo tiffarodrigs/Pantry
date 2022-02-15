@@ -1,9 +1,12 @@
 body {
-  background-color: #d6efff;
+  background-color: #fffcf7;
+
 }
 
 .container {
-  background-color: #fff;
+  padding-top: 15px;
+  margin-top: 15px;
+  border-radius: 5px;
 }
 
 .left-border {
@@ -19,15 +22,129 @@ body {
 
 }
 
-img {
-  max-width: 35px;
-  border-radius: 15px;
+.header-img {
+  text-align: center;
+  background-color: #f9e6c5;
+  /* box-shadow: rgb(0 0 0 / 9%) 0px 10px 10px; */
+  margin-bottom: 25px;
+  border-bottom: 2px solid white;
+}
+
+.header-img img {
+  max-height: 250px;
 }
 
 .btn-pantry {
   background-color: #fed18c;
+  margin-top: 8px;
 }
 
-.header-img {
-  background-image: url("../assets/images/pantry-header.png");
+.list-group-item {
+  width: 100px;
 }
+
+.category, .list-group {
+  margin: 10px;
+  text-align: center;
+}
+
+#top {
+  width: 50px;
+  height: 50px;
+  background-color: #d6efff;
+  color: white;
+  border-radius: 50%;
+  position: fixed;
+  right: 100px;
+  bottom: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.ingredients-inline {
+  display: inline;
+  margin: 5px;
+  cursor: pointer;
+}
+.ingredients-inline li {
+  border: 1px solid #e9e8e6 !important;
+  border-radius: 5px !important;
+}
+
+.list-group li:hover,
+li:focus {
+  border: 2px solid ;
+  background: #d6efff;
+  color: black
+}
+
+.list-group-item-success {
+  background: #d6efff;
+  color: black;
+}
+
+#searchRecipes {
+  margin-bottom: 8px; 
+}
+
+h3 {
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  color: #fe654f;
+}
+
+.headingSpace {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+
+.recipe-card {
+  width: 45%;
+  display: inline;
+  min-height: 100px;
+  margin-left: 15px;
+  margin-right: 15px;
+  border: 1px solid #eeeeee !important;
+}
+.recipe-card li li:hover, li:focus {
+  border: 1px solid #eeeeee !important;
+}
+.recipe-card ul {
+  list-style-type: none;
+  display: flex;
+}
+.recipe-card img {
+  max-width: 75px;
+}
+.recipe-cards {
+  min-height: 200px;
+}
+.recipe-cards:hover {
+  box-shadow: rgb(0 0 0 / 9%) 0px 10px 10px;
+}
+
+.fetched-recipe {
+  padding-left: 0;
+  flex-wrap: wrap;
+}
+
+.fetched-recipe li {
+  margin-left: 15px;
+  width: 250px;
+  margin-bottom: 15px;
+}
+
+.card-title-img {
+  display: flex;
+  padding: 5px;
+}
+
+.logo {
+  margin-top: 8px;
+  margin-bottom: 8px;
+}
+ 
+
+
