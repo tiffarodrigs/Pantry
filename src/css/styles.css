@@ -162,3 +162,58 @@ h3 {
   border-radius: 5px;
 }
 
+#dot1 {
+  animation: dot1 2s infinite linear;
+}
+
+#dot2 {
+  animation: dot2 2s infinite linear;
+}
+
+#dot3 {
+  animation: dot3 2s infinite linear;
+}
+
+@keyframes dot1 {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes dot2 {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes dot3 {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+#loading {
+  font-size: 150px;
+  width: 100%;
+  text-align: center;
+  display: none;
+}
+
