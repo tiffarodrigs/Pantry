@@ -1,6 +1,5 @@
 body {
   background-color: #fffcf7;
-
 }
 
 .container {
@@ -19,7 +18,6 @@ body {
   border-radius: 15px;
   min-height: 60px;
   background-color: #fed18c;
-
 }
 
 .header-img {
@@ -39,11 +37,16 @@ body {
   margin-top: 8px;
 }
 
+.showError {
+  display: none;
+}
+
 .list-group-item {
   width: 100px;
 }
 
-.category, .list-group {
+.category,
+.list-group {
   margin: 10px;
   text-align: center;
 }
@@ -55,7 +58,7 @@ body {
   color: white;
   border-radius: 50%;
   position: fixed;
-  right: 100px;
+  right: 50px;
   bottom: 50px;
   display: flex;
   align-items: center;
@@ -75,9 +78,9 @@ body {
 
 .list-group li:hover,
 li:focus {
-  border: 2px solid ;
+  border: 2px solid;
   background: #d6efff;
-  color: black
+  color: black;
 }
 
 .list-group-item-success {
@@ -86,11 +89,12 @@ li:focus {
 }
 
 #searchRecipes {
-  margin-bottom: 8px; 
+  margin-bottom: 8px;
 }
 
 h3 {
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   color: #fe654f;
 }
 
@@ -99,16 +103,15 @@ h3 {
   margin-bottom: 10px;
 }
 
-
 .recipe-card {
   width: 45%;
   display: inline;
   min-height: 100px;
   margin-left: 15px;
   margin-right: 15px;
-  border: 1px solid #eeeeee !important;
 }
-.recipe-card li li:hover, li:focus {
+.recipe-card li li:hover,
+li:focus {
   border: 1px solid #eeeeee !important;
 }
 .recipe-card ul {
@@ -116,7 +119,9 @@ h3 {
   display: flex;
 }
 .recipe-card img {
-  max-width: 75px;
+  width: 75px;
+  height: 75px;
+  object-fit: cover;
 }
 .recipe-cards {
   min-height: 200px;
@@ -125,12 +130,12 @@ h3 {
   box-shadow: rgb(0 0 0 / 9%) 0px 10px 10px;
 }
 
-.fetched-recipe {
+#fetched-recipe {
   padding-left: 0;
   flex-wrap: wrap;
 }
 
-.fetched-recipe li {
+#fetched-recipe li {
   margin-left: 15px;
   width: 250px;
   margin-bottom: 15px;
@@ -145,6 +150,58 @@ h3 {
   margin-top: 8px;
   margin-bottom: 8px;
 }
- 
 
+#dot1 {
+  animation: dot1 2s infinite linear;
+}
 
+#dot2 {
+  animation: dot2 2s infinite linear;
+}
+
+#dot3 {
+  animation: dot3 2s infinite linear;
+}
+
+@keyframes dot1 {
+  0% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes dot2 {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes dot3 {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+#loading {
+  font-size: 150px;
+  width: 100%;
+  text-align: center;
+  display: none;
+}

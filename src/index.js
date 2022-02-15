@@ -32,18 +32,55 @@ function getIngredients(response) {
 function getRecipes(response) {
   if (response) {
     const recipes = response.results;
+    $("#loading").hide();
     for (let i = 0; i < recipes.length; i++) {
       const recipeName = recipes[i].name;
       const imgCode = recipes[i].thumbnail_url;
       const instructions = recipes[i].instructions;
       let recipe = new Recipe(recipeName, imgCode, instructions, i);
       recipeList.addRecipe(recipe);
-      $("ul#recipe-list").append(`<li id="${i}"><span class="recipe-name">${recipeName}</span><img class="list-img"src=${imgCode}></li>`);
+      let outputStr = `<li id="${i}">
+            <div class="card recipe-cards">
+              <div class="card-body">
+                <div class="card-title-img">
+                  <img src="${imgCode}" alt="img of recipe">
+                  <h4 class="heading-4">${recipeName}</h4>
+                </div>
+                  Click this card to view the recipe
+                </div>
+              </div>
+            </li>`;
+
+      $("ul#fetched-recipe").append(outputStr);
     }
-    console.log(recipeList);
   } else {
-    console.log("error");
     $(".showErrors").text(`There was an error: ${response}`);
+  }
+}
+
+$("ul.fetched-recipe").on("click", "li", function () {
+  let recipe = recipeList.findRecipe(this.id);
+  $("#show-aside").show(1000);
+  $("#name").html(recipe.name);
+  $("#recipe-img").attr("src", recipe.img);
+  $("#instructions").empty();
+  for (let i = 0; i < recipe.instructions.length; i++) {
+    $("#instructions").append(`<li>${recipe.instructions[i].display_text}</li>`);
+  }
+});
+
+function removeSpace(word) {
+  word = word.replace(" ", "-");
+  return word;
+}
+
+function updateList() {
+  $("ul#ingredients-list").empty();
+  for (let i = 0; i < list.length; i++) {
+    $("ul#ingredients-list").append(`<li class="list-group-item list-group-item-light ingredients-inline">${list[i]}</li>`);
+    if (i > 1 && i % 3 === 0) {
+      $("ul#ingredients-list").append(`<br><br>`);
+    }
   }
 }
 
@@ -85,46 +122,21 @@ $(document).ready(function () {
   showIngredients();
 });
 
-$("ul.fetched-recipe").on("click", "li", function () {
-  console.log(this.id);
-  let recipe = recipeList.findRecipe(this.id);
-  console.log(recipe);
-  $("#name").html(recipe.name);
-  $("#recipe-img").attr("src", recipe.img);
-  $("#instructions").empty();
-  for (let i = 0; i < recipe.instructions.length; i++) {
-    $("#instructions").append(`<li>${recipe.instructions[i].display_text}</li>`);
-  }
-
 $("ul.category").on("click", "li", function () {
   $(this).toggleClass("list-group-item-success");
-
   if (!$(this).hasClass("list-group-item-success")) {
     let index = list.indexOf($(this).attr("id"));
     list.splice(index, 1);
     updateList();
-    console.log("after splice" + list);
   } else {
     list.push($(this).attr("id"));
     updateList();
   }
-  console.log("inside on " + list);
+  
+  $("ul#fetched-recipe").empty();
+  $("#loading").show();
+  makeApiCallRecipe();
 });
-
-function removeSpace(word) {
-  word = word.replace(" ", "-");
-  return word;
-}
-
-function updateList() {
-  $("ul#ingredients-list").empty();
-  for (let i = 0; i < list.length; i++) {
-    $("ul#ingredients-list").append(`<li class="list-group-item list-group-item-light ingredients-inline">${list[i]}</li>`);
-    if (i > 1 && i % 3 === 0) {
-      $("ul#ingredients-list").append(`<br><br>`);
-    }
-  }
-}
 
 $("#top").click(function () {
   $("html, body").animate({ scrollTop: 0 }, "slow");
@@ -133,15 +145,21 @@ $("#top").click(function () {
 $("form#ingredientsInput").submit(function (event) {
   event.preventDefault();
   let ingredient = $("input#ingredient").val().toLowerCase();
-
   if (!ingredients.includes(ingredient)) {
+    console.log("not found in list");
     $(".showError").html("Sorry, this item is not an ingredient. Please, choose from the suggestions");
+    $(".showError").slideDown(500, function() {
+      $(".showError").slideUp(2000, function() {
+        $(".showError").empty();
+      });       
+    });
+    
+    
   } else if (list.includes(ingredient)) {
     $(".showError").html("Sorry, you already have this item on the list");
   } else {
     if (ingredientsCat.proteins.includes(ingredient) || ingredientsCat.vegetables.includes(ingredient) || ingredientsCat.spices.includes(ingredient) || ingredientsCat.fruits.includes(ingredient) || ingredientsCat.dairy.includes(ingredient) || ingredientsCat.other.includes(ingredient)) {
       $(`#${ingredient}`).addClass("list-group-item-success");
-      console.log("inside if " + list);
     } else {
       ingredientsCat.other.push(ingredient);
       $("#other").append(`<li class="list-group-item" id="${removeSpace(ingredient)}">${ingredient}</li>`);
@@ -149,7 +167,9 @@ $("form#ingredientsInput").submit(function (event) {
     }
     list.push(ingredient);
     updateList();
-    console.log("inside on " + list);
+    $("ul#fetched-recipe").empty();
+    $("#loading").show();
+    makeApiCallRecipe();
   }
 });
 

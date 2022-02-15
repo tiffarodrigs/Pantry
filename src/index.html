@@ -13,12 +13,12 @@
     <div class="row">
       <div class="col-4">
         <form id="ingredientsInput">
-          
           <h3 class="heading-3">Search by all ingredients</h3>
           <input class="form-control" list="all-ingredients" id="ingredient" placeholder="Type to search...">
           <datalist id="all-ingredients">
           </datalist>
-          <button class="btn btn-pantry">Add Items</button>
+          <button class="btn btn-pantry" id="searchRecipes">Add Items</button>
+          <div class="showError"></div>
         </form>
         <hr>
         <div class="row">
@@ -82,93 +82,31 @@
         </div> 
         <ul class="category ingredients-inline list-group" id="fruits"></ul>
         <hr>
+        <div class="row">
+          <div class="col-2">
+            <img class="logo" src="assets/images/other-logo.png" alt="other logo">
+          </div>
+          <div class="col-10">
+            <h3 class="heading-3 headingSpace">Other</h3>
+          </div>
+        </div> 
+        <ul class="category ingredients-inline list-group" id="other"></ul>
+        <hr>
         <div id="top">&#8593</div>
-        <h3 class="heading-3 headingSpace">Other</h3>
-        <div class="showError">Sorry this item is not an ingredient</div>
-        
-        <button class="btn btn-pantry" id="searchRecipes">Search Recipes</button>
-
-
-
-
-
-        
       </div>
       <div class="col-8 left-border">
         <h3 class="heading-3">List of results</h3>
         <div class="recipe-card">
-          <ul class="fetched-recipe">
-            <li id="recipe-1">
-              <div class="card recipe-cards">
-                <div class="card-body">
-                  <div class="card-title-img">
-                    <img src="https://www.themealdb.com/images/media/meals/n7qnkb1630444129.jpg" alt="img of recipe">
-                    <h4 class="heading-4">Chivito uruguayo</h4>
-                  </div>
-                  Click this card to view the recipe
-                </div>
-              </div>
-            </li>
-            <li id="recipe-2">
-              <div class="card recipe-cards">
-                <div class="card-body">
-                  <div class="card-title-img">
-                    <img src="https://www.themealdb.com/images/media/meals/tnwy8m1628770384.jpg" alt="img of recipe">
-                    <h4 class="heading-4">Croatian Bean Stew Recipe</h4>
-                  </div>
-                  Click this card to view the recipe
-                </div>
-              </div>
-            </li>
-            <li id="recipe-3">
-              <div class="card recipe-cards">
-                <div class="card-body">
-                  <div class="card-title-img">
-                    <img src="https://www.themealdb.com/images/media/meals/pn59o51628769837.jpg" alt="img of recipe">
-                    <h4 class="heading-4">Croatian lamb peka</h4>
-                  </div>
-                  Click this card to view the recipe
-                </div>
-              </div>
-            </li>
-            <li id="recipe-4">
-              <div class="card recipe-cards">
-                <div class="card-body">
-                  <div class="card-title-img">
-                    <img src="https://www.themealdb.com/images/media/meals/nv5lf31628771380.jpg" alt="img of recipe">
-                    <h4 class="heading-4">Fresh sardines</h4>
-                  </div>
-                  Click this card to view the recipe
-                </div>
-              </div>
-            </li>
-            <li id="recipe-5">
-              <div class="card recipe-cards">
-                <div class="card-body">
-                  <div class="card-title-img">
-                    <img src="https://www.themealdb.com/images/media/meals/tkxquw1628771028.jpg" alt="img of recipe">
-                    <h4 class="heading-4">Burek</h4>
-                  </div>
-                  Click this card to view the recipe
-                </div>
-              </div>
-            </li>
-            <li id="recipe-6">
-              <div class="card recipe-cards">
-                <div class="card-body">
-                  <div class="card-title-img">
-                    <img src="https://www.themealdb.com/images/media/meals/n1hcou1628770088.jpg" alt="img of recipe">
-                    <h4 class="heading-4">Traditional Croatian Goulash</h4>
-                  </div>
-                  Click this card to view the recipe
-                </div>
-              </div>
-            </li>
+          <ul id="fetched-recipe">
           </ul> 
+          <div id="loading">
+            <span id="dot1">.</span>
+            <span id="dot2">.</span>
+            <span id="dot3">.</span>
+          </div>
         </div>  
       </div>
     </div>
   </div>
 </body>
-
 </html>
