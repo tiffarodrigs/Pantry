@@ -122,6 +122,18 @@ $(document).ready(function () {
   showIngredients();
 });
 
+$("ul.fetched-recipe").on("click", "li", function () {
+  console.log(this.id);
+  let recipe = recipeList.findRecipe(this.id);
+  console.log(recipe);
+  $("#name").html(recipe.name);
+  $("#recipe-img").attr("src", recipe.img);
+  $("#instructions").empty();
+  for (let i = 0; i < recipe.instructions.length; i++) {
+    $("#instructions").append(`<li>${recipe.instructions[i].display_text}</li>`);
+  }
+});
+
 $("ul.category").on("click", "li", function () {
   $(this).toggleClass("list-group-item-success");
   if (!$(this).hasClass("list-group-item-success")) {

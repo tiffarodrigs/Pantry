@@ -1,5 +1,6 @@
 body {
   background-color: #fffcf7;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .container {
@@ -93,8 +94,6 @@ li:focus {
 }
 
 h3 {
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
   color: #fe654f;
 }
 
@@ -120,9 +119,10 @@ li:focus {
 }
 .recipe-card img {
   width: 75px;
-  height: 75px;
+  height: 75px
   object-fit: cover;
 }
+
 .recipe-cards {
   min-height: 200px;
 }
@@ -149,6 +149,18 @@ li:focus {
 .logo {
   margin-top: 8px;
   margin-bottom: 8px;
+}
+
+.heading-4 {
+  color: #667c58;
+  text-align: left;
+  margin-left: 15px;
+}
+ 
+.img-size{
+  width: 100px;
+  height: 75px;
+  border-radius: 5px;
 }
 
 #dot1 {
@@ -204,4 +216,8 @@ li:focus {
   width: 100%;
   text-align: center;
   display: none;
+}
+
+#show-aside{
+  display:none;
 }
