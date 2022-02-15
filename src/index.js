@@ -95,6 +95,7 @@ $("ul.fetched-recipe").on("click", "li", function () {
   for (let i = 0; i < recipe.instructions.length; i++) {
     $("#instructions").append(`<li>${recipe.instructions[i].display_text}</li>`);
   }
+});
 
 $("ul.category").on("click", "li", function () {
   $(this).toggleClass("list-group-item-success");
