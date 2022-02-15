@@ -37,7 +37,20 @@ function getRecipes(response) {
       const recipeName = recipes[i].name;
       const imgCode = recipes[i].thumbnail_url;
       const instructions = recipes[i].instructions;
-      let recipe = new Recipe(recipeName, imgCode, instructions, i);
+      const ingredientsSections = recipes[i].sections;
+      let sections = [];
+      for (let i = 0; i < ingredientsSections.length; i++) {
+        let ingredients = [];
+        ingredientsSections[i].components.forEach(function(ingredient) {
+          ingredients.push(ingredient.raw_text);
+        });
+        if (ingredientsSections[i].name === null) {
+          sections.push(["Ingredients", ingredients]);
+        } else {
+          sections.push([ingredientsSections[i].name, ingredients]);
+        }
+      }
+      let recipe = new Recipe(recipeName, imgCode, instructions, i, sections); 
       recipeList.addRecipe(recipe);
       let outputStr = `<li id="${i}">
             <div class="card recipe-cards">
@@ -50,7 +63,6 @@ function getRecipes(response) {
                 </div>
               </div>
             </li>`;
-
       $("ul#fetched-recipe").append(outputStr);
     }
   } else {
@@ -58,14 +70,23 @@ function getRecipes(response) {
   }
 }
 
-$("ul.fetched-recipe").on("click", "li", function () {
+$("ul#fetched-recipe").on("click", "li", function () {
   let recipe = recipeList.findRecipe(this.id);
   $("#show-aside").show(1000);
+  $("#ingredients-section").empty();
   $("#name").html(recipe.name);
   $("#recipe-img").attr("src", recipe.img);
   $("#instructions").empty();
   for (let i = 0; i < recipe.instructions.length; i++) {
     $("#instructions").append(`<li>${recipe.instructions[i].display_text}</li>`);
+  }
+  console.log(recipe.sections);
+  for (let i = 0; i < recipe.sections.length; i++) {
+    $("#ingredients-section").append(`<h3>${recipe.sections[i][0]}</h3>`);
+    let ingredients = recipe.sections[i][1];
+    for ( let j =0; j<ingredients.length; j++) {
+      $("#ingredients-section").append(`<p>${ingredients[j]}</p>`);
+    }
   }
 });
 
@@ -120,18 +141,6 @@ function showIngredients() {
 $(document).ready(function () {
   makeApiCallIngr();
   showIngredients();
-});
-
-$("ul.fetched-recipe").on("click", "li", function () {
-  console.log(this.id);
-  let recipe = recipeList.findRecipe(this.id);
-  console.log(recipe);
-  $("#name").html(recipe.name);
-  $("#recipe-img").attr("src", recipe.img);
-  $("#instructions").empty();
-  for (let i = 0; i < recipe.instructions.length; i++) {
-    $("#instructions").append(`<li>${recipe.instructions[i].display_text}</li>`);
-  }
 });
 
 $("ul.category").on("click", "li", function () {
