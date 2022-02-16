@@ -87,7 +87,7 @@ function getRecipes(response) {
                   <img src="${recipe.img}" id="recipe-img" alt="img of recipe">
                   <h4 class="heading-4">${recipe.name}</h4>
                 </div>
-                  <p>You have ${recipe.userCount} out of ${recipe.recipeCount} total ingredients</p>
+                  <p class="ingredient-count">You have ${recipe.userCount} out of ${recipe.recipeCount} total ingredients</p>
 
                 </div>
               </div>
@@ -104,7 +104,7 @@ function getRecipes(response) {
 $("ul#fetched-recipe").on("click", "li", function () {
   let recipe = recipeList.findRecipe(this.id);
 
-  $("#recipe-sidebar").show();
+  $("#recipe-sidebar").fadeIn(200);
 
   $("#ingredients-section").empty();
 
@@ -135,7 +135,7 @@ function updateList() {
   $("ul#ingredients-list").empty();
   for (let i = 0; i < list.length; i++) {
 
-    $("ul#ingredients-list").append(`<li>${list[i]}</li>`);
+    $("ul#ingredients-list").append(`<li class="shopping-list-items">${list[i]}</li>`);
 
   }
 }
@@ -242,6 +242,7 @@ $("#searchRecipes").click(function () {
 
 
 $("#close").click(function(){
-  $("#recipe-sidebar").hide();
+  $("#recipe-sidebar").fadeOut(300);
 });
+
 
