@@ -7,6 +7,7 @@ body {
   padding-top: 15px;
   margin-top: 15px;
   border-radius: 5px;
+  margin-left: 75px;
 }
 
 .left-border {
@@ -52,14 +53,14 @@ body {
   text-align: center;
 }
 
-#top {
+#top{
   width: 50px;
   height: 50px;
   background-color: #d6efff;
   color: white;
   border-radius: 50%;
   position: fixed;
-  left: 50px;
+  left: 10px;
   bottom: 50px;
   display: flex;
   align-items: center;
@@ -86,7 +87,7 @@ li:focus {
 
 .list-group-item-success {
   background: #d6efff;
-  color: black;
+  color: #667c58;
 }
 
 #searchRecipes {
@@ -118,10 +119,13 @@ li:focus {
   display: flex;
 }
 .recipe-card img {
-  width: 75px;
+  width: 100px;
   height: 75px;
   border-radius: 5px;
   object-fit: cover;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .recipe-cards {
@@ -143,7 +147,7 @@ li:focus {
 }
 
 .card-title-img {
-  display: flex;
+  /* display: flex; */
   padding: 5px;
 }
 
@@ -152,7 +156,7 @@ li:focus {
   margin-bottom: 8px;
 }
 
-.heading-4 {
+.heading-5 {
   color: #667c58;
   text-align: left;
   margin-left: 15px;
@@ -236,6 +240,7 @@ li:focus {
   padding: 8px;
   overflow-y: scroll;
   overflow-x: hidden;
+  color: #667c58;
   
 } 
 
@@ -249,12 +254,17 @@ li:focus {
 #recipe-img{
   max-width: 300px;
   border-radius: 5px;
+  margin-left: auto;
+  margin-right: auto;
 }
 #recipe-detail-img{
   max-width: 300px;
   border-radius: 5px;
   display: block;
-  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 25px;
+  margin-bottom: 25px;
 }
 
 #name{
@@ -262,4 +272,45 @@ li:focus {
   text-align: center;
 }
 
+#close{
+  width: 35px;
+  height: 35px;
+  background-color: #667c58;
+  color: #d6efff;
+  border-radius: 20%;
+ /* position: fixed;
+   left: 50px;
+  bottom: 50px; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin: 5px;
+}
 
+#ingredients-section,h3{
+  text-align: left;
+  padding-left: 25px;
+}
+.card-body{
+  height:250px;
+  padding:0px;
+  cursor: pointer;
+}
+
+ul#ingredients-list li {
+  color: #667c58;
+}
+
+#arrow {
+  animation: arrow 1s infinite ease-in-out;
+}
+
+@keyframes arrow {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-5px);
+  }
+}

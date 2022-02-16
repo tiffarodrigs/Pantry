@@ -83,10 +83,12 @@ function getRecipes(response) {
             <div class="card recipe-cards">
               <div class="card-body">
                 <div class="card-title-img">
+
                   <img src="${recipe.img}" id="recipe-img" alt="img of recipe">
                   <h4 class="heading-4">${recipe.name}</h4>
                 </div>
                   <p>You have ${recipe.userCount} out of ${recipe.recipeCount} total ingredients</p>
+
                 </div>
               </div>
             </li>`;
@@ -132,7 +134,9 @@ function removeSpace(word) {
 function updateList() {
   $("ul#ingredients-list").empty();
   for (let i = 0; i < list.length; i++) {
-    $("ul#ingredients-list").append(`<li class="list-group-item list-group-item-light ingredients-inline">${list[i]}</li>`);
+
+    $("ul#ingredients-list").append(`<li>${list[i]}</li>`);
+
   }
 }
 
@@ -236,6 +240,8 @@ $("#searchRecipes").click(function () {
   makeApiCallRecipe();
 });
 
+
 $("#close").click(function(){
   $("#recipe-sidebar").hide();
 });
+
