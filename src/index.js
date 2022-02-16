@@ -18,8 +18,13 @@ async function makeApiCallIngr() {
 
 async function makeApiCallRecipe() {
   let listString = list.join(",");
-  const response = await Recipe.getRecipe(listString);
-  getRecipes(response);
+  if (listString) {
+    const response = await Recipe.getRecipe(listString);
+    getRecipes(response);
+  } else {
+    $("#welcomeBox").show();
+    $("#loading").hide();
+  }
 }
 
 function getIngredients(response) {
@@ -29,41 +34,68 @@ function getIngredients(response) {
   }
 }
 
+
+
 function getRecipes(response) {
   if (response) {
     const recipes = response.results;
     $("#loading").hide();
+    let sortedArray = [];
     for (let i = 0; i < recipes.length; i++) {
       const recipeName = recipes[i].name;
       const imgCode = recipes[i].thumbnail_url;
       const instructions = recipes[i].instructions;
       const ingredientsSections = recipes[i].sections;
       let sections = [];
+      let userCount = 0;
+      let recipeCount = 0;
       for (let i = 0; i < ingredientsSections.length; i++) {
         let ingredients = [];
+        
         ingredientsSections[i].components.forEach(function(ingredient) {
           ingredients.push(ingredient.raw_text);
+          recipeCount++;
+          list.forEach(function(userIngr) {
+            if (ingredient.raw_text.toLowerCase().includes(userIngr)) {
+              userCount++;
+            }
+          });
         });
         if (ingredientsSections[i].name === null) {
           sections.push(["Ingredients", ingredients]);
         } else {
           sections.push([ingredientsSections[i].name, ingredients]);
         }
+        
       }
-      let recipe = new Recipe(recipeName, imgCode, instructions, i, sections); 
+      
+      if (i === 0) {console.log(sections);}
+      let recipe = new Recipe(recipeName, imgCode, instructions, i, sections, userCount, recipeCount); 
       recipeList.addRecipe(recipe);
-      let outputStr = `<li id="${i}">
+      sortedArray.push([userCount,i]);
+    }
+    sortedArray.sort().reverse();
+    let outputStr = "";
+    for (let i = 0; i < sortedArray.length; i++) {
+      let index = sortedArray[i][1];
+      let recipe = recipeList.findRecipe(index);
+      outputStr = `<li id="${recipe.id}">
             <div class="card recipe-cards">
               <div class="card-body">
                 <div class="card-title-img">
-                  <img src="${imgCode}" id="recipe-img" alt="img of recipe">
-                  <br>
-                  <h5 class="heading-5">${recipeName}</h4>
+
+                  <img src="${recipe.img}" id="recipe-img" alt="img of recipe">
+                  <h4 class="heading-4">${recipe.name}</h4>
+                </div>
+                  <p>You have ${recipe.userCount} out of ${recipe.recipeCount} total ingredients</p>
+
                 </div>
               </div>
             </li>`;
       $("ul#fetched-recipe").append(outputStr);
     }
+
+
   } else {
     $(".showErrors").text(`There was an error: ${response}`);
   }
@@ -74,12 +106,13 @@ $("ul#fetched-recipe").on("click", "li", function () {
 
   $("#recipe-sidebar").show();
 
- 
   $("#ingredients-section").empty();
 
   $("#name").html(recipe.name);
   $("#recipe-detail-img").attr("src", recipe.img);
   $("#instructions").empty();
+
+  
   for (let i = 0; i < recipe.instructions.length; i++) {
     $("#instructions").append(`<li>${recipe.instructions[i].display_text}</li>`);
   }
@@ -90,7 +123,7 @@ $("ul#fetched-recipe").on("click", "li", function () {
     for ( let j =0; j<ingredients.length; j++) {
       $("#ingredients-section").append(`<p>${ingredients[j]}</p>`);
     }
-  }
+  }  
 });
 
 function removeSpace(word) {
@@ -101,10 +134,9 @@ function removeSpace(word) {
 function updateList() {
   $("ul#ingredients-list").empty();
   for (let i = 0; i < list.length; i++) {
+
     $("ul#ingredients-list").append(`<li>${list[i]}</li>`);
-    // if (i > 1 && i % 3 === 0) {
-    //   $("ul#ingredients-list").append(`<br><br>`);
-    // }
+
   }
 }
 
@@ -158,6 +190,7 @@ $("ul.category").on("click", "li", function () {
   }
   
   $("ul#fetched-recipe").empty();
+  $("#welcomeBox").hide();
   $("#loading").show();
   makeApiCallRecipe();
 });
@@ -181,9 +214,14 @@ $("form#ingredientsInput").submit(function (event) {
     
   } else if (list.includes(ingredient)) {
     $(".showError").html("Sorry, you already have this item on the list");
+    $(".showError").slideDown(500, function() {
+      $(".showError").slideUp(2000, function() {
+        $(".showError").empty();
+      });       
+    });
   } else {
     if (ingredientsCat.proteins.includes(ingredient) || ingredientsCat.vegetables.includes(ingredient) || ingredientsCat.spices.includes(ingredient) || ingredientsCat.fruits.includes(ingredient) || ingredientsCat.dairy.includes(ingredient) || ingredientsCat.other.includes(ingredient)) {
-      $(`#${ingredient}`).addClass("list-group-item-success");
+      $(`#${removeSpace(ingredient)}`).addClass("list-group-item-success");
     } else {
       ingredientsCat.other.push(ingredient);
       $("#other").append(`<li class="list-group-item" id="${removeSpace(ingredient)}">${ingredient}</li>`);
@@ -201,6 +239,9 @@ $("#searchRecipes").click(function () {
   $("ul#recipe-list").empty();
   makeApiCallRecipe();
 });
+
+
 $("#close").click(function(){
   $("#recipe-sidebar").hide();
 });
+
