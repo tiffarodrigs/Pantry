@@ -1,6 +1,7 @@
 body {
   background-color: #fffcf7;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
 .container {
@@ -10,10 +11,13 @@ body {
   margin-left: 75px;
 }
 
-.left-border {
-  border-left: 1px solid #cacaca;
+.right-border {
+  border-right: 1px solid #cacaca;
 }
 
+.right-border .row {
+  align-items: center;
+}
 .select-ingred-row {
   margin: 3%;
   border: 1px solid #cacaca;
@@ -22,16 +26,23 @@ body {
   background-color: #fed18c;
 }
 
-.header-img {
+.header {
   text-align: center;
   background-color: #f9e6c5;
-  /* box-shadow: rgb(0 0 0 / 9%) 0px 10px 10px; */
+  background-size: contain;
   margin-bottom: 25px;
   border-bottom: 2px solid white;
+  height: 250px;
 }
 
-.header-img img {
-  max-height: 300px;
+.header-img {
+  width: 100%;
+  height: 100%;
+  background-color: rgba(249, 230, 197, 0.75);
+}
+
+#pantryImg {
+  cursor: pointer;
 }
 
 .btn-pantry {
@@ -44,16 +55,21 @@ body {
 }
 
 .list-group-item {
-  width: 100px;
+  width: 120px;
+  margin: 5px;
 }
 
 .category,
 .list-group {
   margin: 10px;
   text-align: center;
+  width: 300px;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: row;
 }
 
-#top{
+#top {
   width: 50px;
   height: 50px;
   background-color: #d6efff;
@@ -68,26 +84,31 @@ body {
   cursor: pointer;
 }
 
-.shopping-list-items{
+.shopping-list-items {
   font-size: 16pt;
 }
 
 #ingredients-list {
   list-style: none;
   padding: 0px;
-}
-
-#ingredients-list .shopping-list-items:before {
-  content: '\2713';
-  margin: 10px;
-}
-
-.ingredients-inline {
-  display: inline;
-  margin: 5px;
   cursor: pointer;
+  display: flex;
+  width: 300px;
+  flex-wrap: wrap;
 }
-.ingredients-inline li {
+
+#ingredients-list li {
+  list-style-type: "\2713";
+  margin-left: 30px;
+  padding-left: 10px;
+}
+
+#ingredients-list li:hover {
+  list-style-type: "x";
+  color: #fe654f;
+}
+
+.list-group li {
   border: 1px solid #e9e8e6 !important;
   border-radius: 5px !important;
 }
@@ -110,6 +131,7 @@ li:focus {
 
 h4 {
   color: #fe654f;
+  margin: 0 !important;
 }
 
 .heading-4 {
@@ -177,7 +199,7 @@ li:focus {
 .card-title-img {
   /* display: flex; */
   padding: 5px;
-  height:185px;
+  height: 185px;
   padding-top: 20px;
 }
 
@@ -191,8 +213,8 @@ li:focus {
   text-align: left;
   margin-left: 15px;
 }
- 
-.img-size{
+
+.img-size {
   width: 100px;
   height: 75px;
   border-radius: 10px;
@@ -205,12 +227,12 @@ li:focus {
 
 #dot2 {
   animation: dot2 2s infinite linear;
-  color:#fe654f;
+  color: #fe654f;
 }
 
 #dot3 {
   animation: dot3 2s infinite linear;
-  color:#667c58;
+  color: #667c58;
 }
 
 @keyframes dot1 {
@@ -257,42 +279,37 @@ li:focus {
 }
 
 #recipe-sidebar {
-  display:none;
-
+  display: none;
   background-color: #f1f7ee;
-  /* min-height: 200px; */
   position: fixed;
   top: 0;
   right: 0;
-  max-width: 400px;
+  max-width: 500px;
   overflow: auto;
   height: 100%;
 }
 
-
- .sidebar_content {
+.sidebar_content {
   padding: 8px;
   overflow-y: scroll;
   overflow-x: hidden;
   color: #667c58;
-  
-} 
-
-
-.scroll-class{
-  overflow: scroll;
-  height: 100vh;
-
 }
 
-#recipe-img{
+.sidebar_content h3,
+.sidebar_content p {
+  text-align: left;
+  padding-left: 25px;
+}
+
+#recipe-img {
   max-width: 300px;
   border-radius: 5px;
   margin-left: auto;
   margin-right: auto;
 }
-#recipe-detail-img{
-  max-width: 300px;
+#recipe-detail-img {
+  max-width: 400px;
   border-radius: 5px;
   display: block;
   margin-left: auto;
@@ -301,18 +318,19 @@ li:focus {
   margin-bottom: 25px;
 }
 
-#name{
+#name {
   color: #667c58;
   text-align: center;
+  font-size: 2em;
 }
 
-#close{
+#close {
   width: 35px;
   height: 35px;
   background-color: #667c58;
   color: #d6efff;
   border-radius: 20%;
- /* position: fixed;
+  /* position: fixed;
    left: 50px;
   bottom: 50px; */
   display: flex;
@@ -324,15 +342,12 @@ li:focus {
 
 #close:hover {
   box-shadow: rgb(0 0 0 / 9%) 0px 10px 10px;
+  background-color: #fe654f;
 }
 
-#ingredients-section,h3{
-  text-align: left;
-  padding-left: 25px;
-}
-.card-body{
-  height:250px;
-  padding:0px;
+.card-body {
+  height: 250px;
+  padding: 0px;
   cursor: pointer;
 }
 
@@ -358,22 +373,27 @@ ul#ingredients-list li {
 }
 
 .welcome-title {
-  color:#fe654f;
+  color: #fe654f;
 }
 
 .welcome-text {
-  color:#667c58;
-}
-
-.flex {
-  display: flex;
+  color: #667c58;
 }
 
 .pagination {
   justify-content: center;
+  display: none;
 }
 
 .pagination a,
 .pagination a:hover {
   color: #fe654f;
+}
+
+#my-pantry {
+  display: none;
+}
+
+.flex {
+  display: flex !important;
 }
