@@ -1,10 +1,12 @@
 export default class Recipe {
-  constructor(name, img, instructions, id, sections) {
+  constructor(name, img, instructions, id, sections, userCount, recipeCount) {
     this.name = name;
     this.img = img;
     this.instructions = instructions;
     this.id = id;
     this.sections = sections;
+    this.userCount = userCount;
+    this.recipeCount = recipeCount;
   }
 
   static getRecipe(ingredients) {
