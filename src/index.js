@@ -34,8 +34,6 @@ function getIngredients(response) {
   }
 }
 
-
-
 function getRecipes(response) {
   if (response) {
     const recipes = response.results;
@@ -69,62 +67,79 @@ function getRecipes(response) {
         
       }
       
-      if (i === 0) {console.log(sections);}
+      // if (i === 0) {console.log(sections);}
       let recipe = new Recipe(recipeName, imgCode, instructions, i, sections, userCount, recipeCount); 
       recipeList.addRecipe(recipe);
       sortedArray.push([userCount,i]);
     }
     sortedArray.sort().reverse();
     let outputStr = "";
+    let page = 1;
+    $("ul.pagination").empty();
+    $("div.pages").empty();
     for (let i = 0; i < sortedArray.length; i++) {
+      if (i % 12 === 0) {
+        $("ul.pagination").append(`<li class="page-item" id="page-${page}"><a  class="page-link">${page}</a></li>`);
+        $("div.pages").append(`<ul class="page-${page} fetched-recipe"></ul>`);
+        page ++;
+      }
+
       let index = sortedArray[i][1];
       let recipe = recipeList.findRecipe(index);
       outputStr = `<li id="${recipe.id}">
-            <div class="card recipe-cards">
-              <div class="card-body">
-                <div class="card-title-img">
+              <div class="card recipe-cards">
+                <div class="card-body">
+                  <div class="card-title-img">
 
-                  <img src="${recipe.img}" id="recipe-img" alt="img of recipe">
-                  <h4 class="heading-4">${recipe.name}</h4>
-                </div>
-                  <p>You have ${recipe.userCount} out of ${recipe.recipeCount} total ingredients</p>
+                    <img src="${recipe.img}" id="recipe-img-${recipe.id}" alt="img of recipe">
+                    <h4 class="heading-4">${recipe.name}</h4>
+                  </div>
+                    <p class="ingredient-count">You have ${recipe.userCount} out of ${recipe.recipeCount} total ingredients</p>
 
+                  </div>
                 </div>
-              </div>
-            </li>`;
-      $("ul#fetched-recipe").append(outputStr);
+              </li>`;
+      $(`ul.page-${page-1}`).append(outputStr);
     }
-
-
+    $(`ul.page-1`).addClass("flex");
+    clickRecipeEventListener();
   } else {
     $(".showErrors").text(`There was an error: ${response}`);
   }
 }
 
-$("ul#fetched-recipe").on("click", "li", function () {
-  let recipe = recipeList.findRecipe(this.id);
-
-  $("#recipe-sidebar").show();
-
-  $("#ingredients-section").empty();
-
-  $("#name").html(recipe.name);
-  $("#recipe-detail-img").attr("src", recipe.img);
-  $("#instructions").empty();
-
-  
-  for (let i = 0; i < recipe.instructions.length; i++) {
-    $("#instructions").append(`<li>${recipe.instructions[i].display_text}</li>`);
-  }
-  console.log(recipe.sections);
-  for (let i = 0; i < recipe.sections.length; i++) {
-    $("#ingredients-section").append(`<h3>${recipe.sections[i][0]}</h3>`);
-    let ingredients = recipe.sections[i][1];
-    for ( let j =0; j<ingredients.length; j++) {
-      $("#ingredients-section").append(`<p>${ingredients[j]}</p>`);
-    }
-  }  
+$(`ul.pagination`).on("click", "li", function () {
+  $("div.pages").children().removeClass("flex");
+  let id = $(this).attr("id");
+  $(`ul.${id}`).addClass("flex");
+  $("html, body").animate({ scrollTop: 0 }, "fast");
 });
+
+function clickRecipeEventListener () {
+  $("ul.fetched-recipe").on("click", "li", function () {
+    let recipe = recipeList.findRecipe(this.id);
+
+    $("#recipe-sidebar").fadeIn(200);
+
+    $("#ingredients-section").empty();
+
+    $("#name").html(recipe.name);
+    $("#recipe-detail-img").attr("src", recipe.img);
+    $("#instructions").empty();
+
+    
+    for (let i = 0; i < recipe.instructions.length; i++) {
+      $("#instructions").append(`<li>${recipe.instructions[i].display_text}</li>`);
+    }
+    for (let i = 0; i < recipe.sections.length; i++) {
+      $("#ingredients-section").append(`<h3>${recipe.sections[i][0]}</h3>`);
+      let ingredients = recipe.sections[i][1];
+      for ( let j =0; j<ingredients.length; j++) {
+        $("#ingredients-section").append(`<p>${ingredients[j]}</p>`);
+      }
+    }  
+  });
+}
 
 function removeSpace(word) {
   word = word.replace(" ", "-");
@@ -135,7 +150,7 @@ function updateList() {
   $("ul#ingredients-list").empty();
   for (let i = 0; i < list.length; i++) {
 
-    $("ul#ingredients-list").append(`<li>${list[i]}</li>`);
+    $("ul#ingredients-list").append(`<li class="shopping-list-items">${list[i]}</li>`);
 
   }
 }
@@ -189,7 +204,7 @@ $("ul.category").on("click", "li", function () {
     updateList();
   }
   
-  $("ul#fetched-recipe").empty();
+  $("ul.fetched-recipe").empty();
   $("#welcomeBox").hide();
   $("#loading").show();
   makeApiCallRecipe();
@@ -199,11 +214,20 @@ $("#top").click(function () {
   $("html, body").animate({ scrollTop: 0 }, "fast");
 });
 
+$(document).on('click', function(event) {
+  if ($(event.target).parents('.fetched-recipe').length > 0 || $(event.target).parents('#recipe-sidebar').length > 0 && $(event.target).attr("id") !== "close") {
+    $('#recipe-sidebar').fadeIn(600);
+  } else {
+    //console.log($(event.target).parents('fetched-recipe').length > 0);
+    $('#recipe-sidebar').fadeOut(200);
+  }
+});
+
 $("form#ingredientsInput").submit(function (event) {
   event.preventDefault();
   let ingredient = $("input#ingredient").val().toLowerCase();
   if (!ingredients.includes(ingredient)) {
-    console.log("not found in list");
+    //console.log("not found in list");
     $(".showError").html("Sorry, this item is not an ingredient. Please, choose from the suggestions");
     $(".showError").slideDown(500, function() {
       $(".showError").slideUp(2000, function() {
@@ -229,19 +253,14 @@ $("form#ingredientsInput").submit(function (event) {
     }
     list.push(ingredient);
     updateList();
-    $("ul#fetched-recipe").empty();
+    $("ul.fetched-recipe").empty();
+    $("#welcomeBox").hide();
     $("#loading").show();
     makeApiCallRecipe();
   }
 });
 
-$("#searchRecipes").click(function () {
-  $("ul#recipe-list").empty();
-  makeApiCallRecipe();
-});
-
-
 $("#close").click(function(){
-  $("#recipe-sidebar").hide();
+  $("#recipe-sidebar").fadeOut(300);
 });
 

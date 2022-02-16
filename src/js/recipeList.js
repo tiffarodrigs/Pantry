@@ -8,7 +8,6 @@ export default class RecipeList {
   }
 
   findRecipe(id) {
-    console.log("inside find recipe", this.recipes);
     if (this.recipes[id] != undefined) {
       return this.recipes[id];
     }
