@@ -7,7 +7,7 @@
 
 <body>
   <div class="header-img">
-    <img src="assets/images/header.jpg" alt="header-image">
+    <img src="assets/images/header.jpg" alt="header-image" height="250px">
   </div>
   <div class="container">
     <div class="row">
@@ -29,7 +29,7 @@
             <h4 class="heading-3 headingSpace">Shopping List</h4>
           </div>
         </div> 
-        <ul class="list-group ingredients-inline" id="ingredients-list">
+        <ul id="ingredients-list">
         </ul>
         <hr>
         <div class="row">
@@ -95,7 +95,11 @@
         <div id="top">&#8593</div>
       </div>
       <div class="col-8 left-border">
-        <h4 class="heading-3">List of results</h4>
+        <div id="welcomeBox">
+          <h1>Welcome to Pantry!</h1>
+          <p>Please select ingredients to see recipes using those ingredients.</p>
+          <img id="arrow" src="assets/images/arrow.png" alt="arrow" height="50px">
+        </div>
         <div class="recipe-card">
           <ul id="fetched-recipe">
           </ul> 
@@ -109,12 +113,13 @@
     </div>
 
     <div id="recipe-sidebar" class="sidebar">
-      <div id="right">&#8594</div>
+      <div id="close">&#10005</div>
       <div class="sidebar_content">
         <h1 id="name"></h1>        
         <img id="recipe-detail-img">
-        <ul id="instructions"></ul>
         <div id="ingredients-section"></div>
+        <h3>Instruction:</h3>
+        <ul id="instructions"></ul>
       </div>
     </div>
 
