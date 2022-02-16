@@ -31,7 +31,7 @@ body {
 }
 
 .header-img img {
-  max-height: 250px;
+  max-height: 300px;
 }
 
 .btn-pantry {
@@ -68,6 +68,20 @@ body {
   cursor: pointer;
 }
 
+.shopping-list-items{
+  font-size: 16pt;
+}
+
+#ingredients-list {
+  list-style: none;
+  padding: 0px;
+}
+
+#ingredients-list .shopping-list-items:before {
+  content: '\2713';
+  margin: 10px;
+}
+
 .ingredients-inline {
   display: inline;
   margin: 5px;
@@ -98,6 +112,20 @@ h4 {
   color: #fe654f;
 }
 
+.heading-4 {
+  text-align: center;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.ingredient-count {
+  text-align: center;
+  margin: auto;
+  color: #667c58;
+}
+
 .headingSpace {
   margin-top: 20px;
   margin-bottom: 10px;
@@ -116,7 +144,6 @@ li:focus {
 }
 .recipe-card ul {
   list-style-type: none;
-  display: flex;
 }
 .recipe-card img {
   width: 100px;
@@ -135,12 +162,13 @@ li:focus {
   box-shadow: rgb(0 0 0 / 9%) 0px 10px 10px;
 }
 
-#fetched-recipe {
+.fetched-recipe {
+  display: none;
   padding-left: 0;
   flex-wrap: wrap;
 }
 
-#fetched-recipe li {
+.fetched-recipe li {
   margin-left: 15px;
   width: 250px;
   margin-bottom: 15px;
@@ -149,6 +177,8 @@ li:focus {
 .card-title-img {
   /* display: flex; */
   padding: 5px;
+  height:185px;
+  padding-top: 20px;
 }
 
 .logo {
@@ -170,14 +200,17 @@ li:focus {
 
 #dot1 {
   animation: dot1 2s infinite linear;
+  color: #d6efff;
 }
 
 #dot2 {
   animation: dot2 2s infinite linear;
+  color:#fe654f;
 }
 
 #dot3 {
   animation: dot3 2s infinite linear;
+  color:#667c58;
 }
 
 @keyframes dot1 {
@@ -236,6 +269,7 @@ li:focus {
   height: 100%;
 }
 
+
  .sidebar_content {
   padding: 8px;
   overflow-y: scroll;
@@ -288,6 +322,10 @@ li:focus {
   margin: 5px;
 }
 
+#close:hover {
+  box-shadow: rgb(0 0 0 / 9%) 0px 10px 10px;
+}
+
 #ingredients-section,h3{
   text-align: left;
   padding-left: 25px;
@@ -313,4 +351,29 @@ ul#ingredients-list li {
   to {
     transform: translateX(-5px);
   }
+}
+
+#welcomeBox {
+  padding-left: 20px;
+}
+
+.welcome-title {
+  color:#fe654f;
+}
+
+.welcome-text {
+  color:#667c58;
+}
+
+.flex {
+  display: flex;
+}
+
+.pagination {
+  justify-content: center;
+}
+
+.pagination a,
+.pagination a:hover {
+  color: #fe654f;
 }
