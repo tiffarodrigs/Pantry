@@ -119,7 +119,9 @@ function clickRecipeEventListener () {
   $("ul.fetched-recipe").on("click", "li", function () {
     let recipe = recipeList.findRecipe(this.id);
 
+
     $("#recipe-sidebar").fadeIn(200);
+
 
     $("#ingredients-section").empty();
 
@@ -263,4 +265,5 @@ $("form#ingredientsInput").submit(function (event) {
 $("#close").click(function(){
   $("#recipe-sidebar").fadeOut(300);
 });
+
 
