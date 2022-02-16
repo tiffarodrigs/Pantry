@@ -57,9 +57,8 @@ function getRecipes(response) {
               <div class="card-body">
                 <div class="card-title-img">
                   <img src="${imgCode}" id="recipe-img" alt="img of recipe">
-                  <h4 class="heading-4">${recipeName}</h4>
-                </div>
-                  Click this card to view the recipe
+                  <br>
+                  <h5 class="heading-5">${recipeName}</h4>
                 </div>
               </div>
             </li>`;
@@ -102,10 +101,10 @@ function removeSpace(word) {
 function updateList() {
   $("ul#ingredients-list").empty();
   for (let i = 0; i < list.length; i++) {
-    $("ul#ingredients-list").append(`<li class="list-group-item list-group-item-light ingredients-inline">${list[i]}</li>`);
-    if (i > 1 && i % 3 === 0) {
-      $("ul#ingredients-list").append(`<br><br>`);
-    }
+    $("ul#ingredients-list").append(`<li>${list[i]}</li>`);
+    // if (i > 1 && i % 3 === 0) {
+    //   $("ul#ingredients-list").append(`<br><br>`);
+    // }
   }
 }
 
@@ -201,4 +200,7 @@ $("form#ingredientsInput").submit(function (event) {
 $("#searchRecipes").click(function () {
   $("ul#recipe-list").empty();
   makeApiCallRecipe();
+});
+$("#close").click(function(){
+  $("#recipe-sidebar").hide();
 });
