@@ -22,8 +22,10 @@ async function makeApiCallRecipe() {
     const response = await Recipe.getRecipe(listString);
     getRecipes(response);
   } else {
+    $("#my-pantry").removeClass("flex");
     $("#welcomeBox").show();
     $("#loading").hide();
+    $(".pagination").removeClass("flex");
   }
 }
 
@@ -34,10 +36,14 @@ function getIngredients(response) {
   }
 }
 
+
 function getRecipes(response) {
   if (response) {
     const recipes = response.results;
+    console.log(list.length);
+    $("#my-pantry").addClass("flex");
     $("#loading").hide();
+    $(".pagination").addClass("flex");
     let sortedArray = [];
     for (let i = 0; i < recipes.length; i++) {
       const recipeName = recipes[i].name;
@@ -64,10 +70,8 @@ function getRecipes(response) {
         } else {
           sections.push([ingredientsSections[i].name, ingredients]);
         }
-        
       }
-      
-      // if (i === 0) {console.log(sections);}
+
       let recipe = new Recipe(recipeName, imgCode, instructions, i, sections, userCount, recipeCount); 
       recipeList.addRecipe(recipe);
       sortedArray.push([userCount,i]);
@@ -94,7 +98,7 @@ function getRecipes(response) {
                     <img src="${recipe.img}" id="recipe-img-${recipe.id}" alt="img of recipe">
                     <h4 class="heading-4">${recipe.name}</h4>
                   </div>
-                    <p class="ingredient-count">You have ${recipe.userCount} out of ${recipe.recipeCount} total ingredients</p>
+                    <p class="ingredient-count">You have ${recipe.userCount} out of ${recipe.recipeCount} ingredients</p>
 
                   </div>
                 </div>
@@ -108,6 +112,12 @@ function getRecipes(response) {
   }
 }
 
+// function returnToHome () {
+$("#pantryImg").click(function() {
+  location.reload(true);
+});
+
+
 $(`ul.pagination`).on("click", "li", function () {
   $("div.pages").children().removeClass("flex");
   let id = $(this).attr("id");
@@ -118,13 +128,8 @@ $(`ul.pagination`).on("click", "li", function () {
 function clickRecipeEventListener () {
   $("ul.fetched-recipe").on("click", "li", function () {
     let recipe = recipeList.findRecipe(this.id);
-
-
     $("#recipe-sidebar").fadeIn(200);
-
-
     $("#ingredients-section").empty();
-
     $("#name").html(recipe.name);
     $("#recipe-detail-img").attr("src", recipe.img);
     $("#instructions").empty();
@@ -144,49 +149,56 @@ function clickRecipeEventListener () {
 }
 
 function removeSpace(word) {
-  word = word.replace(" ", "-");
+  word = word.replace(/" "/g, "-");
   return word;
 }
 
 function updateList() {
   $("ul#ingredients-list").empty();
   for (let i = 0; i < list.length; i++) {
-
-    $("ul#ingredients-list").append(`<li class="shopping-list-items">${list[i]}</li>`);
-
+    let ingredientName = list[i].replaceAll(' ','-');
+    $("ul#ingredients-list").append(`<li class="shopping-list-items" id="pantry-has-${ingredientName}">${list[i]}</li>`);
+    
+    $(`li#pantry-has-${ingredientName}`).on("click", function () {
+      removeItemFromList(`li#pantry-has-${ingredientName}`);
+    });
   }
+}
+
+function removeItemFromList (id) {
+  $(id).toggleClass("list-group-item-success");
+  let ingredientName = id.split("-");
+  if (!$(this).hasClass("list-group-item-success")) {
+    let index = list.indexOf(ingredientName[2]);
+    list.splice(index, 1);
+    $(`li#${removeSpace(ingredientName[2])}`).removeClass("list-group-item-success");
+    updateList();
+  } else {
+    list.push($(id).attr("id"));
+    updateList();
+  }
+  $("ul.fetched-recipe").empty();
+  $("#welcomeBox").hide();
+  $("#loading").show();
+  $(".pagination").removeClass("flex");
+  makeApiCallRecipe();
 }
 
 function showIngredients() {
   for (let i = 0; i < ingredientsCat.proteins.length; i++) {
     $("ul#proteins").append(`<li class="list-group-item ingredients-inline" id="${removeSpace(ingredientsCat.proteins[i])}">${ingredientsCat.proteins[i]}</li>`);
-    if (i > 1 && i % 3 === 0) {
-      $("ul#proteins").append(`<br><br>`);
-    }
   }
   for (let i = 0; i < ingredientsCat.vegetables.length; i++) {
     $("#vegetables").append(`<li class="list-group-item ingredients-inline" id="${removeSpace(ingredientsCat.vegetables[i])}">${ingredientsCat.vegetables[i]}</li>`);
-    if (i > 1 && i % 3 === 0) {
-      $("ul#vegetables").append(`<br><br>`);
-    }
   }
   for (let i = 0; i < ingredientsCat.spices.length; i++) {
     $("#spices").append(`<li class="list-group-item ingredients-inline" id="${removeSpace(ingredientsCat.spices[i])}">${ingredientsCat.spices[i]}</li>`);
-    if (i > 1 && i % 3 === 0) {
-      $("ul#spices").append(`<br><br>`);
-    }
   }
   for (let i = 0; i < ingredientsCat.dairy.length; i++) {
     $("#dairy").append(`<li class="list-group-item ingredients-inline" id="${removeSpace(ingredientsCat.dairy[i])}">${ingredientsCat.dairy[i]}</li>`);
-    if (i > 1 && i % 3 === 0) {
-      $("ul#dairy").append(`<br><br>`);
-    }
   }
   for (let i = 0; i < ingredientsCat.fruits.length; i++) {
     $("#fruits").append(`<li class="list-group-item ingredients-inline" id="${removeSpace(ingredientsCat.fruits[i])}">${ingredientsCat.fruits[i]}</li>`);
-    if (i > 1 && i % 3 === 0) {
-      $("ul#fruits").append(`<br><br>`);
-    }
   }
 }
 
@@ -205,10 +217,12 @@ $("ul.category").on("click", "li", function () {
     list.push($(this).attr("id"));
     updateList();
   }
-  
+  $("html, body").animate({ scrollTop: 0 }, "fast");
   $("ul.fetched-recipe").empty();
   $("#welcomeBox").hide();
   $("#loading").show();
+  
+  $(".pagination").removeClass("flex");
   makeApiCallRecipe();
 });
 
@@ -246,11 +260,7 @@ $("form#ingredientsInput").submit(function (event) {
       });       
     });
   } else {
-    if (ingredientsCat.proteins.includes(ingredient) || ingredientsCat.vegetables.includes(ingredient) || ingredientsCat.spices.includes(ingredient) || ingredientsCat.fruits.includes(ingredient) || ingredientsCat.dairy.includes(ingredient) || ingredientsCat.other.includes(ingredient)) {
-      $(`#${removeSpace(ingredient)}`).addClass("list-group-item-success");
-    } else {
-      ingredientsCat.other.push(ingredient);
-      $("#other").append(`<li class="list-group-item" id="${removeSpace(ingredient)}">${ingredient}</li>`);
+    if (ingredientsCat.proteins.includes(ingredient) || ingredientsCat.vegetables.includes(ingredient) || ingredientsCat.spices.includes(ingredient) || ingredientsCat.fruits.includes(ingredient) || ingredientsCat.dairy.includes(ingredient)) {
       $(`#${removeSpace(ingredient)}`).addClass("list-group-item-success");
     }
     list.push(ingredient);
@@ -259,6 +269,8 @@ $("form#ingredientsInput").submit(function (event) {
     $("#welcomeBox").hide();
     $("#loading").show();
     makeApiCallRecipe();
+    $("#ingredient").val("");
+
   }
 });
 

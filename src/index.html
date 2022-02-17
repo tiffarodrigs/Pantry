@@ -3,111 +3,102 @@
 
 <head>
   <title>Pantry</title>
+  <link rel="shortcut icon" type="image/png" href="assets/images/other-logo.png"/>
 </head>
 
 <body>
-  <div class="header-img">
-    <img src="assets/images/header2.jpg" alt="header-image" height="250px">
+  <div class="header" style="background-image: url('assets/images/pattern.png')">
+    <div class="header-img">
+      <img id="pantryImg" src="assets/images/pantryLogo.png" alt="header-image" height="250px">
+    </div>
+    
   </div>
   <div class="container">
     <div class="row">
-      <div class="col-4 scroll-class">
+      <div class="col-3 scroll-class right-border">
         <form id="ingredientsInput">
-          <h4 class="heading-3">Search by all ingredients</h4>
+          <h4 class="heading-3">Add Your Ingredients</h4>
           <input class="form-control" list="all-ingredients" id="ingredient" placeholder="Type to search...">
           <datalist id="all-ingredients">
           </datalist>
           <button class="btn btn-pantry" id="searchRecipes">Add Items</button>
           <div class="showError"></div>
         </form>
-        <hr>
-        <div class="row">
-          <div class="col-2">
+        <div class="row" id="my-pantry">
+          <div class="col-lg-3">
             <img class="logo" src="assets/images/listlogo.png" alt="list logo">
           </div>
-          <div class="col-10">
-            <h4 class="heading-3 headingSpace">Shopping List</h4>
+          <div class="col-lg-9">
+            <h4 class="heading-3 headingSpace">My Pantry Has...</h4>
           </div>
+          <ul id="ingredients-list"></ul>
         </div> 
-        <ul id="ingredients-list">
-        </ul>
         <hr>
         <div class="row">
-          <div class="col-2">
+          <div class="col-lg-3">
             <img class="logo" src="assets/images/protein-logo.png" alt="protein logo">
           </div>
-          <div class="col-10">
+          <div class="col-lg-9">
             <h4 class="heading-3 headingSpace">Proteins</h4>
           </div>
         </div>
-        <ul class="category ingredients-inline list-group" id="proteins"></ul>
+        <ul class="category list-group" id="proteins"></ul>
         <hr>
         <div class="row">
-          <div class="col-2">
+          <div class="col-lg-3">
             <img class="logo" src="assets/images/carrot-icon.png" alt="carrot logo">
           </div>
-          <div class="col-10">
+          <div class="col-lg-9">
             <h4 class="heading-3 headingSpace">Vegetables</h4>
           </div>
         </div> 
-        <ul class="category ingredients-inline list-group" id="vegetables"></ul>
+        <ul class="category list-group" id="vegetables"></ul>
         <hr>
         <div class="row">
-          <div class="col-2">
+          <div class="col-lg-3">
             <img class="logo" src="assets/images/spice-logo.png" alt="spice logo">
           </div>
-          <div class="col-10">
+          <div class="col-lg-9">
             <h4 class="heading-3 headingSpace">Spices & Herbs</h4>
           </div>
         </div> 
-        <ul class="category ingredients-inline list-group" id="spices"></ul>
+        <ul class="category list-group" id="spices"></ul>
         <hr>
         <div class="row">
-          <div class="col-2">
+          <div class="col-lg-3">
             <img class="logo" src="assets/images/dairy-logo.png" alt="dairy logo">
           </div>
-          <div class="col-10">
-            <h4 class="heading-3 headingSpace">Dairy</h4>
+          <div class="col-lg-9">
+            <h4 class="heading-3 headingSpace">Dairy & Eggs</h4>
           </div>
         </div> 
-        <ul class="category ingredients-inline list-group" id="dairy"></ul>
+        <ul class="category list-group" id="dairy"></ul>
         <hr>
         <div class="row">
-          <div class="col-2">
+          <div class="col-lg-3">
             <img class="logo" src="assets/images/fruit-logo.png" alt="fruit logo">
           </div>
-          <div class="col-10">
+          <div class="col-lg-9">
             <h4 class="heading-3 headingSpace">Fruits</h4>
           </div>
         </div> 
-        <ul class="category ingredients-inline list-group" id="fruits"></ul>
-        <hr>
-        <div class="row">
-          <div class="col-2">
-            <img class="logo" src="assets/images/other-logo.png" alt="other logo">
-          </div>
-          <div class="col-10">
-            <h4 class="heading-3 headingSpace">Other</h4>
-          </div>
-        </div> 
-        <ul class="category ingredients-inline list-group" id="other"></ul>
-        <hr>
+        <ul class="category list-group" id="fruits"></ul>
         <div id="top">&#8593</div>
       </div>
-      <div class="col-8 left-border">
+      <div class="col-9">
         <div id="welcomeBox">
-          <h1>Welcome to Pantry!</h1>
-          <p>Please select ingredients to see recipes using those ingredients.</p>
-          <img id="arrow" src="assets/images/arrow.png" alt="arrow" height="50px">
+          <h1 class="welcome-title">Welcome to Pantry!</h1>
+          <p class="welcome-text">Select your ingredients to view recipes.</p>
+          <img id="arrow" src="assets/images/arrow.png" alt="arrow" height="70px">
         </div>
         <div class="recipe-card">
           <div class="pages"></div>
-          <ul class="pagination"></ul>
           <div id="loading">
-            <span id="dot1">.</span>
-            <span id="dot2">.</span>
-            <span id="dot3">.</span>
+            <span id="dot1">&#9679</span>
+            <span id="dot2">&#9679</span>
+            <span id="dot3">&#9679</span>
           </div>
+          <ul class="pagination"></ul>
         </div>
       </div>
     </div>
@@ -119,8 +110,10 @@
         <h1 id="name"></h1>        
         <img id="recipe-detail-img">
         <div id="ingredients-section"></div>
-        <h3>Instruction:</h3>
-        <ul id="instructions"></ul>
+        <div id="instructions-container">
+          <h3>Instructions</h3>
+          <ul id="instructions"></ul>
+        </div>
       </div>
     </div>
 

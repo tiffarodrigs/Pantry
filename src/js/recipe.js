@@ -10,7 +10,7 @@ export default class Recipe {
   }
 
   static getRecipe(ingredients) {
-    return fetch(`https://tasty.p.rapidapi.com/recipes/list?from=0&size=20&tags=under_30_minutes&q=${ingredients}`, {
+    return fetch(`https://tasty.p.rapidapi.com/recipes/list?from=0&size=50&tags=under_30_minutes&q=${ingredients}`, {
       method: "GET",
       headers: {
         "x-rapidapi-host": "tasty.p.rapidapi.com",
