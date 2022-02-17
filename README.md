@@ -40,6 +40,7 @@ Choose ingredients you have in your pantry. Our application also uses the Rest A
 - Certain ingredients such as "Clove", "Butter", "Cumin" do not return results.
 - If you click anywhere in line with the X on recipe sidebar, it closes the sidebar
 - When you only input 1 ingredient "beef", recipes containing both "beef" & "beef stock" say: "you have 2 out of \_\_\_ ingredients" even though you technically only have 1
+- Page sizing doesn't always work as intended. (Certain sections bleed over into other sections of the page)
 - Let us know if you find anymore!
 
 ## License

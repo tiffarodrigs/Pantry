@@ -11,6 +11,9 @@ let ingredientsCat = new Ingredient();
 let list = [];
 let recipeList = new RecipeList();
 
+makeApiCallIngr();
+showIngredients();
+
 async function makeApiCallIngr() {
   const response = await Ingredient.getIngredients();
   getIngredients(response);
@@ -46,7 +49,6 @@ function getIngredients(response) {
     });
   }
 }
-
 
 function getRecipes(response) {
   if (response) {
@@ -127,21 +129,6 @@ function getRecipes(response) {
   }
 }
 
-$("#pantryImg").click(function() {
-  location.reload(true);
-});
-
-$("#copy").click(function() {
-  $("html, body").animate({ scrollTop: 0 }, "fast");
-});
-
-$(`ul.pagination`).on("click", "li", function () {
-  $("div.pages").children().removeClass("flex");
-  let id = $(this).attr("id");
-  $(`ul.${id}`).addClass("flex");
-  $("html, body").animate({ scrollTop: 0 }, "fast");
-});
-
 function clickRecipeEventListener () {
   $("ul.fetched-recipe").on("click", "li", function () {
     let recipe = recipeList.findRecipe(this.id);
@@ -203,59 +190,23 @@ function removeItemFromList (id) {
 
 function showIngredients() {
   for (let i = 0; i < ingredientsCat.proteins.length; i++) {
-    $("ul#proteins").append(`<li class="list-group-item ingredients-inline" id="${removeSpace(ingredientsCat.proteins[i])}">${ingredientsCat.proteins[i]}</li>`);
+    $("ul#proteins").append(`<li class="list-group-item" id="${removeSpace(ingredientsCat.proteins[i])}">${ingredientsCat.proteins[i]}</li>`);
   }
   for (let i = 0; i < ingredientsCat.vegetables.length; i++) {
-    $("#vegetables").append(`<li class="list-group-item ingredients-inline" id="${removeSpace(ingredientsCat.vegetables[i])}">${ingredientsCat.vegetables[i]}</li>`);
+    $("#vegetables").append(`<li class="list-group-item" id="${removeSpace(ingredientsCat.vegetables[i])}">${ingredientsCat.vegetables[i]}</li>`);
   }
   for (let i = 0; i < ingredientsCat.spices.length; i++) {
-    $("#spices").append(`<li class="list-group-item ingredients-inline" id="${removeSpace(ingredientsCat.spices[i])}">${ingredientsCat.spices[i]}</li>`);
+    $("#spices").append(`<li class="list-group-item" id="${removeSpace(ingredientsCat.spices[i])}">${ingredientsCat.spices[i]}</li>`);
   }
   for (let i = 0; i < ingredientsCat.dairy.length; i++) {
-    $("#dairy").append(`<li class="list-group-item ingredients-inline" id="${removeSpace(ingredientsCat.dairy[i])}">${ingredientsCat.dairy[i]}</li>`);
+    $("#dairy").append(`<li class="list-group-item" id="${removeSpace(ingredientsCat.dairy[i])}">${ingredientsCat.dairy[i]}</li>`);
   }
   for (let i = 0; i < ingredientsCat.fruits.length; i++) {
-    $("#fruits").append(`<li class="list-group-item ingredients-inline" id="${removeSpace(ingredientsCat.fruits[i])}">${ingredientsCat.fruits[i]}</li>`);
+    $("#fruits").append(`<li class="list-group-item" id="${removeSpace(ingredientsCat.fruits[i])}">${ingredientsCat.fruits[i]}</li>`);
   }
 }
 
-$(document).ready(function () {
-  makeApiCallIngr();
-  showIngredients();
-});
-
-$("ul.category").on("click", "li", function () {
-  $(this).toggleClass("list-group-item-success");
-  if (!$(this).hasClass("list-group-item-success")) {
-    let index = list.indexOf($(this).attr("id"));
-    list.splice(index, 1);
-    updateList();
-  } else {
-    list.push($(this).attr("id"));
-    updateList();
-  }
-  $("html, body").animate({ scrollTop: 0 }, "fast");
-  $("ul.fetched-recipe").empty();
-  $("#welcomeBox").hide();
-  $("#loading").show();
-  
-  $(".pagination").removeClass("flex");
-  makeApiCallRecipe();
-});
-
-$("#top").click(function () {
-  $("html, body").animate({ scrollTop: 0 }, "fast");
-});
-
-$(document).on('click', function(event) {
-  if ($(event.target).parents('.fetched-recipe').length > 0 || $(event.target).parents('#recipe-sidebar').length > 0 && $(event.target).attr("id") !== "close") {
-    $('#recipe-sidebar').fadeIn(600);
-  } else {
-    $('#recipe-sidebar').fadeOut(200);
-  }
-});
-
-$("form#ingredientsInput").submit(function (event) {
+$("form#ingredientsInput").on("submit", function (event) {
   event.preventDefault();
   let ingredientInput = $("input#ingredient").val().toLowerCase();
   if (!ingredientsApi.includes(ingredientInput)) {
@@ -286,8 +237,52 @@ $("form#ingredientsInput").submit(function (event) {
   }
 });
 
-$("#close").click(function(){
+$("#close").on("click", function(){
   $("#recipe-sidebar").fadeOut(300);
 });
 
+$("#pantryImg").on("click", function() {
+  location.reload(true);
+});
 
+$("#copy").on("click", function() {
+  $("html, body").animate({ scrollTop: 0 }, "fast");
+});
+
+$(`ul.pagination`).on("click", "li", function () {
+  $("div.pages").children().removeClass("flex");
+  let id = $(this).attr("id");
+  $(`ul.${id}`).addClass("flex");
+  $("html, body").animate({ scrollTop: 0 }, "fast");
+});
+
+$("ul.category").on("click", "li", function () {
+  $(this).toggleClass("list-group-item-success");
+  if (!$(this).hasClass("list-group-item-success")) {
+    let index = list.indexOf($(this).attr("id"));
+    list.splice(index, 1);
+    updateList();
+  } else {
+    list.push($(this).attr("id"));
+    updateList();
+  }
+  $("html, body").animate({ scrollTop: 0 }, "fast");
+  $("ul.fetched-recipe").empty();
+  $("#welcomeBox").hide();
+  $("#loading").show();
+  
+  $(".pagination").removeClass("flex");
+  makeApiCallRecipe();
+});
+
+$("#top").on('click', function () {
+  $("html, body").animate({ scrollTop: 0 }, "fast");
+});
+
+$(document).on('click', function(event) {
+  if ($(event.target).parents('.fetched-recipe').length > 0 || $(event.target).parents('#recipe-sidebar').length > 0 && $(event.target).attr("id") !== "close") {
+    $('#recipe-sidebar').fadeIn(600);
+  } else {
+    $('#recipe-sidebar').fadeOut(200);
+  }
+});
