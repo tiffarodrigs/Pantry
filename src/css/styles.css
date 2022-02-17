@@ -1,3 +1,7 @@
+html {
+  height: 100%;
+}
+
 body {
   background-color: #fffcf7;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
@@ -412,4 +416,19 @@ ul#ingredients-list li {
 
 #instructions-container ul {
   padding-right: 25px;
+}
+
+footer {
+  background-color: #fe654f;
+  width: 100%;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+footer p {
+  margin: 0;
+  font-weight: bold;
+  color: #fed18c;
 }

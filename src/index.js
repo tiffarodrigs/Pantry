@@ -109,14 +109,17 @@ function getRecipes(response) {
     clickRecipeEventListener();
   } else {
     $(".showErrors").text(`There was an error: ${response}`);
+    $(".showError").slideDown(500, function() {
+      $(".showError").slideUp(2000, function() {
+        $(".showError").empty();
+      });       
+    });
   }
 }
 
-// function returnToHome () {
 $("#pantryImg").click(function() {
   location.reload(true);
 });
-
 
 $(`ul.pagination`).on("click", "li", function () {
   $("div.pages").children().removeClass("flex");
@@ -243,7 +246,6 @@ $("form#ingredientsInput").submit(function (event) {
   event.preventDefault();
   let ingredient = $("input#ingredient").val().toLowerCase();
   if (!ingredients.includes(ingredient)) {
-    //console.log("not found in list");
     $(".showError").html("Sorry, this item is not an ingredient. Please, choose from the suggestions");
     $(".showError").slideDown(500, function() {
       $(".showError").slideUp(2000, function() {
