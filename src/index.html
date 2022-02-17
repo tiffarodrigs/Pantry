@@ -3,6 +3,7 @@
 
 <head>
   <title>Pantry</title>
+  <link rel="shortcut icon" type="image/png" href="assets/images/other-logo.png"/>
 </head>
 
 <body>
@@ -68,7 +69,7 @@
             <img class="logo" src="assets/images/dairy-logo.png" alt="dairy logo">
           </div>
           <div class="col-lg-9">
-            <h4 class="heading-3 headingSpace">Dairy</h4>
+            <h4 class="heading-3 headingSpace">Dairy & Eggs</h4>
           </div>
         </div> 
         <ul class="category list-group" id="dairy"></ul>
@@ -82,7 +83,6 @@
           </div>
         </div> 
         <ul class="category list-group" id="fruits"></ul>
-        <hr>
         <div id="top">&#8593</div>
       </div>
       <div class="col-9">
@@ -93,12 +93,12 @@
         </div>
         <div class="recipe-card">
           <div class="pages"></div>
-          <ul class="pagination"></ul>
           <div id="loading">
-            <span id="dot1">.</span>
-            <span id="dot2">.</span>
-            <span id="dot3">.</span>
+            <span id="dot1">&#9679</span>
+            <span id="dot2">&#9679</span>
+            <span id="dot3">&#9679</span>
           </div>
+          <ul class="pagination"></ul>
         </div>
       </div>
     </div>
@@ -110,8 +110,10 @@
         <h1 id="name"></h1>        
         <img id="recipe-detail-img">
         <div id="ingredients-section"></div>
-        <h3>Instruction:</h3>
-        <ul id="instructions"></ul>
+        <div id="instructions-container">
+          <h3>Instructions</h3>
+          <ul id="instructions"></ul>
+        </div>
       </div>
     </div>
 

@@ -23,9 +23,9 @@ async function makeApiCallRecipe() {
     getRecipes(response);
   } else {
     $("#my-pantry").removeClass("flex");
-    $(".pagination").removeClass("flex");
     $("#welcomeBox").show();
     $("#loading").hide();
+    $(".pagination").removeClass("flex");
   }
 }
 
@@ -41,9 +41,9 @@ function getRecipes(response) {
   if (response) {
     const recipes = response.results;
     console.log(list.length);
-    $(".pagination").addClass("flex");
     $("#my-pantry").addClass("flex");
     $("#loading").hide();
+    $(".pagination").addClass("flex");
     let sortedArray = [];
     for (let i = 0; i < recipes.length; i++) {
       const recipeName = recipes[i].name;
@@ -98,7 +98,7 @@ function getRecipes(response) {
                     <img src="${recipe.img}" id="recipe-img-${recipe.id}" alt="img of recipe">
                     <h4 class="heading-4">${recipe.name}</h4>
                   </div>
-                    <p class="ingredient-count">You have ${recipe.userCount} out of ${recipe.recipeCount} total ingredients</p>
+                    <p class="ingredient-count">You have ${recipe.userCount} out of ${recipe.recipeCount} ingredients</p>
 
                   </div>
                 </div>
@@ -180,6 +180,7 @@ function removeItemFromList (id) {
   $("ul.fetched-recipe").empty();
   $("#welcomeBox").hide();
   $("#loading").show();
+  $(".pagination").removeClass("flex");
   makeApiCallRecipe();
 }
 
@@ -216,9 +217,12 @@ $("ul.category").on("click", "li", function () {
     list.push($(this).attr("id"));
     updateList();
   }
+  $("html, body").animate({ scrollTop: 0 }, "fast");
   $("ul.fetched-recipe").empty();
   $("#welcomeBox").hide();
   $("#loading").show();
+  
+  $(".pagination").removeClass("flex");
   makeApiCallRecipe();
 });
 
@@ -256,7 +260,7 @@ $("form#ingredientsInput").submit(function (event) {
       });       
     });
   } else {
-    if (ingredientsCat.proteins.includes(ingredient) || ingredientsCat.vegetables.includes(ingredient) || ingredientsCat.spices.includes(ingredient) || ingredientsCat.fruits.includes(ingredient) || ingredientsCat.dairy.includes(ingredient) || ingredientsCat.other.includes(ingredient)) {
+    if (ingredientsCat.proteins.includes(ingredient) || ingredientsCat.vegetables.includes(ingredient) || ingredientsCat.spices.includes(ingredient) || ingredientsCat.fruits.includes(ingredient) || ingredientsCat.dairy.includes(ingredient)) {
       $(`#${removeSpace(ingredient)}`).addClass("list-group-item-success");
     }
     list.push(ingredient);
