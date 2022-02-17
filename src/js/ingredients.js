@@ -3,7 +3,7 @@ export default class Ingredient {
     this.proteins = ["chicken", "beef", "pork", "turkey", "salmon", "tofu"];
     this.vegetables = ["onion", "tomato", "carrot", "radish", "cauliflower", "peppers"];
     this.spices = ["cinnamon", "paprika", "nutmeg", "cajun", "chilli", "coriander"];
-    this.dairy = ["milk", "egg", "cheese", "yogurt", "butter", "cream"];
+    this.dairy = ["milk", "egg", "cheese", "yogurt", "ghee", "cream"];
     this.fruits = ["apple", "orange", "banana","mango","pineapple","strawberry"];
   }
 

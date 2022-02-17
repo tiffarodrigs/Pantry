@@ -6,7 +6,7 @@ import Ingredient from "./js/ingredients.js";
 import Recipe from "./js/recipe.js";
 import RecipeList from "./js/recipeList.js";
 
-let ingredients = [];
+let ingredientsApi = [];
 let ingredientsCat = new Ingredient();
 let list = [];
 let recipeList = new RecipeList();
@@ -20,7 +20,9 @@ async function makeApiCallRecipe() {
   let listString = list.join(",");
   if (listString) {
     const response = await Recipe.getRecipe(listString);
-    getRecipes(response);
+    if (list.length !== 0) {
+      getRecipes(response);
+    }
   } else {
     $("#my-pantry").removeClass("flex");
     $("#welcomeBox").show();
@@ -30,9 +32,18 @@ async function makeApiCallRecipe() {
 }
 
 function getIngredients(response) {
-  for (let i = 0; i < response.meals.length; i++) {
-    $("datalist#all-ingredients").append(`<option>${response.meals[i].strIngredient.toLowerCase()}</option>`);
-    ingredients.push(response.meals[i].strIngredient.toLowerCase());
+  if (response) {
+    for (let i = 0; i < response.meals.length; i++) {
+      $("datalist#all-ingredients").append(`<option>${response.meals[i].strIngredient.toLowerCase()}</option>`);
+      ingredientsApi.push(response.meals[i].strIngredient.toLowerCase());
+    }
+  } else {
+    $(".showError").text(`There was an error: ${response}`);
+    $(".showError").slideDown(500, function() {
+      $(".showError").fadeOut(4000, function() {
+        $(".showError").empty();
+      });       
+    });
   }
 }
 
@@ -246,17 +257,15 @@ $(document).on('click', function(event) {
 
 $("form#ingredientsInput").submit(function (event) {
   event.preventDefault();
-  let ingredient = $("input#ingredient").val().toLowerCase();
-  if (!ingredients.includes(ingredient)) {
+  let ingredientInput = $("input#ingredient").val().toLowerCase();
+  if (!ingredientsApi.includes(ingredientInput)) {
     $(".showError").html("Sorry, this item is not an ingredient. Please, choose from the suggestions");
     $(".showError").slideDown(500, function() {
       $(".showError").fadeOut(4000, function() {
         $(".showError").empty();
       });       
     });
-    
-    
-  } else if (list.includes(ingredient)) {
+  } else if (list.includes(ingredientInput)) {
     $(".showError").html("Sorry, you already have this item on the list");
     $(".showError").slideDown(500, function() {
       $(".showError").fadeOut(4000, function() {
@@ -264,17 +273,16 @@ $("form#ingredientsInput").submit(function (event) {
       });       
     });
   } else {
-    if (ingredientsCat.proteins.includes(ingredient) || ingredientsCat.vegetables.includes(ingredient) || ingredientsCat.spices.includes(ingredient) || ingredientsCat.fruits.includes(ingredient) || ingredientsCat.dairy.includes(ingredient)) {
-      $(`#${removeSpace(ingredient)}`).addClass("list-group-item-success");
+    if (ingredientsCat.proteins.includes(ingredientInput) || ingredientsCat.vegetables.includes(ingredientInput) || ingredientsCat.spices.includes(ingredientInput) || ingredientsCat.fruits.includes(ingredientInput) || ingredientsCat.dairy.includes(ingredientInput)) {
+      $(`#${removeSpace(ingredientInput)}`).addClass("list-group-item-success");
     }
-    list.push(ingredient);
+    list.push(ingredientInput);
     updateList();
     $("ul.fetched-recipe").empty();
     $("#welcomeBox").hide();
     $("#loading").show();
     makeApiCallRecipe();
     $("#ingredient").val("");
-
   }
 });
 

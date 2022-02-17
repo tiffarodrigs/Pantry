@@ -112,6 +112,7 @@ body {
 .list-group li {
   border: 1px solid #e9e8e6 !important;
   border-radius: 5px !important;
+  cursor: pointer;
 }
 
 .list-group li:hover,
@@ -306,6 +307,10 @@ li:focus {
   margin-right: 25px;
 }
 
+.sidebar_content h3 {
+  padding-top: 10px;
+}
+
 #recipe-img {
   max-width: 300px;
   border-radius: 5px;
@@ -373,6 +378,9 @@ ul#ingredients-list li {
 
 #welcomeBox {
   padding-left: 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 .welcome-title {
@@ -414,6 +422,10 @@ ul#ingredients-list li {
   padding-right: 25px;
 }
 
+#instructions li {
+  margin-top: 15px;
+}
+
 footer {
   background-color: #fe654f;
   width: 100%;
@@ -421,6 +433,7 @@ footer {
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: 30px;
 }
 
 footer p {
@@ -431,4 +444,8 @@ footer p {
 
 #copy {
   cursor: pointer;
+}
+
+#pot {
+  display: block;
 }
