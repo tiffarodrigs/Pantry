@@ -7,15 +7,14 @@
 </head>
 
 <body>
-  <div class="header" style="background-image: url('assets/images/pattern.png')">
+  <div class="header" style="background-image: url('./assets/images/pattern.png')">
     <div class="header-img">
       <img id="pantryImg" src="assets/images/pantryLogo.png" alt="header-image" height="250px">
     </div>
-    
   </div>
   <div class="container">
     <div class="row">
-      <div class="col-3 scroll-class right-border">
+      <div class="col-3 right-border">
         <form id="ingredientsInput">
           <h4 class="heading-3">Add Your Ingredients</h4>
           <input class="form-control" list="all-ingredients" id="ingredient" placeholder="Type to search...">
@@ -122,7 +121,7 @@
         <span id="copyright">
           <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
         </span>
-        Pantry
+        <span id="copy">Pantry</span>
       </p>
     </footer>
 

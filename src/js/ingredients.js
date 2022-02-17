@@ -2,9 +2,9 @@ export default class Ingredient {
   constructor() {
     this.proteins = ["chicken", "beef", "pork", "turkey", "salmon", "tofu"];
     this.vegetables = ["onion", "tomato", "carrot", "radish", "cauliflower", "peppers"];
-    this.spices = ["cinnamon", "paprika", "nutmeg", "cumin", "chilli", "coriander"];
+    this.spices = ["cinnamon", "paprika", "nutmeg", "cajun", "chilli", "coriander"];
     this.dairy = ["milk", "egg", "cheese", "yogurt", "butter", "cream"];
-    this.fruits = ["apple", "orange", "banana","mango","pineapple","strawberries"];
+    this.fruits = ["apple", "orange", "banana","mango","pineapple","strawberry"];
   }
 
   static async getIngredients() {

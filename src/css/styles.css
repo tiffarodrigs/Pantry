@@ -295,7 +295,6 @@ li:focus {
 
 .sidebar_content {
   padding: 8px;
-  overflow-y: scroll;
   overflow-x: hidden;
   color: #667c58;
 }
@@ -335,9 +334,6 @@ li:focus {
   background-color: #667c58;
   color: #d6efff;
   border-radius: 20%;
-  /* position: fixed;
-   left: 50px;
-  bottom: 50px; */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -431,4 +427,8 @@ footer p {
   margin: 0;
   font-weight: bold;
   color: #fed18c;
+}
+
+#copy {
+  cursor: pointer;
 }

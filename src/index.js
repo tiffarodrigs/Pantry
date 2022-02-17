@@ -40,7 +40,6 @@ function getIngredients(response) {
 function getRecipes(response) {
   if (response) {
     const recipes = response.results;
-    console.log(list.length);
     $("#my-pantry").addClass("flex");
     $("#loading").hide();
     $(".pagination").addClass("flex");
@@ -108,9 +107,9 @@ function getRecipes(response) {
     $(`ul.page-1`).addClass("flex");
     clickRecipeEventListener();
   } else {
-    $(".showErrors").text(`There was an error: ${response}`);
+    $(".showError").text(`There was an error: ${response}`);
     $(".showError").slideDown(500, function() {
-      $(".showError").slideUp(2000, function() {
+      $(".showError").fadeOut(4000, function() {
         $(".showError").empty();
       });       
     });
@@ -119,6 +118,10 @@ function getRecipes(response) {
 
 $("#pantryImg").click(function() {
   location.reload(true);
+});
+
+$("#copy").click(function() {
+  $("html, body").animate({ scrollTop: 0 }, "fast");
 });
 
 $(`ul.pagination`).on("click", "li", function () {
@@ -237,7 +240,6 @@ $(document).on('click', function(event) {
   if ($(event.target).parents('.fetched-recipe').length > 0 || $(event.target).parents('#recipe-sidebar').length > 0 && $(event.target).attr("id") !== "close") {
     $('#recipe-sidebar').fadeIn(600);
   } else {
-    //console.log($(event.target).parents('fetched-recipe').length > 0);
     $('#recipe-sidebar').fadeOut(200);
   }
 });
@@ -248,7 +250,7 @@ $("form#ingredientsInput").submit(function (event) {
   if (!ingredients.includes(ingredient)) {
     $(".showError").html("Sorry, this item is not an ingredient. Please, choose from the suggestions");
     $(".showError").slideDown(500, function() {
-      $(".showError").slideUp(2000, function() {
+      $(".showError").fadeOut(4000, function() {
         $(".showError").empty();
       });       
     });
@@ -257,7 +259,7 @@ $("form#ingredientsInput").submit(function (event) {
   } else if (list.includes(ingredient)) {
     $(".showError").html("Sorry, you already have this item on the list");
     $(".showError").slideDown(500, function() {
-      $(".showError").slideUp(2000, function() {
+      $(".showError").fadeOut(4000, function() {
         $(".showError").empty();
       });       
     });
