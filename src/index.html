@@ -3,19 +3,18 @@
 
 <head>
   <title>Pantry</title>
-  <link rel="shortcut icon" type="image/png" href="assets/images/other-logo.png"/>
+  <link rel="shortcut icon" type="image/png" href="assets/images/favicon.png"/>
 </head>
 
 <body>
-  <div class="header" style="background-image: url('assets/images/pattern.png')">
+  <div class="header" style="background-image: url('./assets/images/pattern.png')">
     <div class="header-img">
       <img id="pantryImg" src="assets/images/pantryLogo.png" alt="header-image" height="250px">
     </div>
-    
   </div>
   <div class="container">
     <div class="row">
-      <div class="col-3 scroll-class right-border">
+      <div class="col-3 right-border">
         <form id="ingredientsInput">
           <h4 class="heading-3">Add Your Ingredients</h4>
           <input class="form-control" list="all-ingredients" id="ingredient" placeholder="Type to search...">
@@ -89,7 +88,8 @@
         <div id="welcomeBox">
           <h1 class="welcome-title">Welcome to Pantry!</h1>
           <p class="welcome-text">Select your ingredients to view recipes.</p>
-          <img id="arrow" src="assets/images/arrow.png" alt="arrow" height="70px">
+          <img id="arrow" src="assets/images/arrow.png" alt="arrow" width="70px">
+          <img id="pot" src="assets/images/pot.gif" alt="pot" width="300px">
         </div>
         <div class="recipe-card">
           <div class="pages"></div>
@@ -116,6 +116,15 @@
         </div>
       </div>
     </div>
+    <footer>
+      <p>
+        &copy;
+        <span id="copyright">
+          <script>document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))</script>
+        </span>
+        <span id="copy">Pantry</span>
+      </p>
+    </footer>
 
   </div>
 

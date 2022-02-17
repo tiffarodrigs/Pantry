@@ -6,10 +6,13 @@ import Ingredient from "./js/ingredients.js";
 import Recipe from "./js/recipe.js";
 import RecipeList from "./js/recipeList.js";
 
-let ingredients = [];
+let ingredientsApi = [];
 let ingredientsCat = new Ingredient();
 let list = [];
 let recipeList = new RecipeList();
+
+makeApiCallIngr();
+showIngredients();
 
 async function makeApiCallIngr() {
   const response = await Ingredient.getIngredients();
@@ -20,7 +23,9 @@ async function makeApiCallRecipe() {
   let listString = list.join(",");
   if (listString) {
     const response = await Recipe.getRecipe(listString);
-    getRecipes(response);
+    if (list.length !== 0) {
+      getRecipes(response);
+    }
   } else {
     $("#my-pantry").removeClass("flex");
     $("#welcomeBox").show();
@@ -30,17 +35,24 @@ async function makeApiCallRecipe() {
 }
 
 function getIngredients(response) {
-  for (let i = 0; i < response.meals.length; i++) {
-    $("datalist#all-ingredients").append(`<option>${response.meals[i].strIngredient.toLowerCase()}</option>`);
-    ingredients.push(response.meals[i].strIngredient.toLowerCase());
+  if (response) {
+    for (let i = 0; i < response.meals.length; i++) {
+      $("datalist#all-ingredients").append(`<option>${response.meals[i].strIngredient.toLowerCase()}</option>`);
+      ingredientsApi.push(response.meals[i].strIngredient.toLowerCase());
+    }
+  } else {
+    $(".showError").text(`There was an error: ${response}`);
+    $(".showError").slideDown(500, function() {
+      $(".showError").fadeOut(4000, function() {
+        $(".showError").empty();
+      });       
+    });
   }
 }
-
 
 function getRecipes(response) {
   if (response) {
     const recipes = response.results;
-    console.log(list.length);
     $("#my-pantry").addClass("flex");
     $("#loading").hide();
     $(".pagination").addClass("flex");
@@ -108,22 +120,14 @@ function getRecipes(response) {
     $(`ul.page-1`).addClass("flex");
     clickRecipeEventListener();
   } else {
-    $(".showErrors").text(`There was an error: ${response}`);
+    $(".showError").text(`There was an error: ${response}`);
+    $(".showError").slideDown(500, function() {
+      $(".showError").fadeOut(4000, function() {
+        $(".showError").empty();
+      });       
+    });
   }
 }
-
-// function returnToHome () {
-$("#pantryImg").click(function() {
-  location.reload(true);
-});
-
-
-$(`ul.pagination`).on("click", "li", function () {
-  $("div.pages").children().removeClass("flex");
-  let id = $(this).attr("id");
-  $(`ul.${id}`).addClass("flex");
-  $("html, body").animate({ scrollTop: 0 }, "fast");
-});
 
 function clickRecipeEventListener () {
   $("ul.fetched-recipe").on("click", "li", function () {
@@ -186,25 +190,70 @@ function removeItemFromList (id) {
 
 function showIngredients() {
   for (let i = 0; i < ingredientsCat.proteins.length; i++) {
-    $("ul#proteins").append(`<li class="list-group-item ingredients-inline" id="${removeSpace(ingredientsCat.proteins[i])}">${ingredientsCat.proteins[i]}</li>`);
+    $("ul#proteins").append(`<li class="list-group-item" id="${removeSpace(ingredientsCat.proteins[i])}">${ingredientsCat.proteins[i]}</li>`);
   }
   for (let i = 0; i < ingredientsCat.vegetables.length; i++) {
-    $("#vegetables").append(`<li class="list-group-item ingredients-inline" id="${removeSpace(ingredientsCat.vegetables[i])}">${ingredientsCat.vegetables[i]}</li>`);
+    $("#vegetables").append(`<li class="list-group-item" id="${removeSpace(ingredientsCat.vegetables[i])}">${ingredientsCat.vegetables[i]}</li>`);
   }
   for (let i = 0; i < ingredientsCat.spices.length; i++) {
-    $("#spices").append(`<li class="list-group-item ingredients-inline" id="${removeSpace(ingredientsCat.spices[i])}">${ingredientsCat.spices[i]}</li>`);
+    $("#spices").append(`<li class="list-group-item" id="${removeSpace(ingredientsCat.spices[i])}">${ingredientsCat.spices[i]}</li>`);
   }
   for (let i = 0; i < ingredientsCat.dairy.length; i++) {
-    $("#dairy").append(`<li class="list-group-item ingredients-inline" id="${removeSpace(ingredientsCat.dairy[i])}">${ingredientsCat.dairy[i]}</li>`);
+    $("#dairy").append(`<li class="list-group-item" id="${removeSpace(ingredientsCat.dairy[i])}">${ingredientsCat.dairy[i]}</li>`);
   }
   for (let i = 0; i < ingredientsCat.fruits.length; i++) {
-    $("#fruits").append(`<li class="list-group-item ingredients-inline" id="${removeSpace(ingredientsCat.fruits[i])}">${ingredientsCat.fruits[i]}</li>`);
+    $("#fruits").append(`<li class="list-group-item" id="${removeSpace(ingredientsCat.fruits[i])}">${ingredientsCat.fruits[i]}</li>`);
   }
 }
 
-$(document).ready(function () {
-  makeApiCallIngr();
-  showIngredients();
+$("form#ingredientsInput").on("submit", function (event) {
+  event.preventDefault();
+  let ingredientInput = $("input#ingredient").val().toLowerCase();
+  if (!ingredientsApi.includes(ingredientInput)) {
+    $(".showError").html("Sorry, this item is not an ingredient. Please, choose from the suggestions");
+    $(".showError").slideDown(500, function() {
+      $(".showError").fadeOut(4000, function() {
+        $(".showError").empty();
+      });       
+    });
+  } else if (list.includes(ingredientInput)) {
+    $(".showError").html("Sorry, you already have this item on the list");
+    $(".showError").slideDown(500, function() {
+      $(".showError").fadeOut(4000, function() {
+        $(".showError").empty();
+      });       
+    });
+  } else {
+    if (ingredientsCat.proteins.includes(ingredientInput) || ingredientsCat.vegetables.includes(ingredientInput) || ingredientsCat.spices.includes(ingredientInput) || ingredientsCat.fruits.includes(ingredientInput) || ingredientsCat.dairy.includes(ingredientInput)) {
+      $(`#${removeSpace(ingredientInput)}`).addClass("list-group-item-success");
+    }
+    list.push(ingredientInput);
+    updateList();
+    $("ul.fetched-recipe").empty();
+    $("#welcomeBox").hide();
+    $("#loading").show();
+    makeApiCallRecipe();
+    $("#ingredient").val("");
+  }
+});
+
+$("#close").on("click", function(){
+  $("#recipe-sidebar").fadeOut(300);
+});
+
+$("#pantryImg").on("click", function() {
+  location.reload(true);
+});
+
+$("#copy").on("click", function() {
+  $("html, body").animate({ scrollTop: 0 }, "fast");
+});
+
+$(`ul.pagination`).on("click", "li", function () {
+  $("div.pages").children().removeClass("flex");
+  let id = $(this).attr("id");
+  $(`ul.${id}`).addClass("flex");
+  $("html, body").animate({ scrollTop: 0 }, "fast");
 });
 
 $("ul.category").on("click", "li", function () {
@@ -226,7 +275,7 @@ $("ul.category").on("click", "li", function () {
   makeApiCallRecipe();
 });
 
-$("#top").click(function () {
+$("#top").on('click', function () {
   $("html, body").animate({ scrollTop: 0 }, "fast");
 });
 
@@ -234,48 +283,6 @@ $(document).on('click', function(event) {
   if ($(event.target).parents('.fetched-recipe').length > 0 || $(event.target).parents('#recipe-sidebar').length > 0 && $(event.target).attr("id") !== "close") {
     $('#recipe-sidebar').fadeIn(600);
   } else {
-    //console.log($(event.target).parents('fetched-recipe').length > 0);
     $('#recipe-sidebar').fadeOut(200);
   }
 });
-
-$("form#ingredientsInput").submit(function (event) {
-  event.preventDefault();
-  let ingredient = $("input#ingredient").val().toLowerCase();
-  if (!ingredients.includes(ingredient)) {
-    //console.log("not found in list");
-    $(".showError").html("Sorry, this item is not an ingredient. Please, choose from the suggestions");
-    $(".showError").slideDown(500, function() {
-      $(".showError").slideUp(2000, function() {
-        $(".showError").empty();
-      });       
-    });
-    
-    
-  } else if (list.includes(ingredient)) {
-    $(".showError").html("Sorry, you already have this item on the list");
-    $(".showError").slideDown(500, function() {
-      $(".showError").slideUp(2000, function() {
-        $(".showError").empty();
-      });       
-    });
-  } else {
-    if (ingredientsCat.proteins.includes(ingredient) || ingredientsCat.vegetables.includes(ingredient) || ingredientsCat.spices.includes(ingredient) || ingredientsCat.fruits.includes(ingredient) || ingredientsCat.dairy.includes(ingredient)) {
-      $(`#${removeSpace(ingredient)}`).addClass("list-group-item-success");
-    }
-    list.push(ingredient);
-    updateList();
-    $("ul.fetched-recipe").empty();
-    $("#welcomeBox").hide();
-    $("#loading").show();
-    makeApiCallRecipe();
-    $("#ingredient").val("");
-
-  }
-});
-
-$("#close").click(function(){
-  $("#recipe-sidebar").fadeOut(300);
-});
-
-

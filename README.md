@@ -28,7 +28,7 @@ Choose ingredients you have in your pantry. Our application also uses the Rest A
 - Clone the Repository
 - Run `$ npm install` in root directory
 - Retrieve API key from Tasty API. Go to https://rapidapi.com. Sign up for an account. Once you sign up search for the Tasty API(make sure not to select Tasty World). Once their click "Subscribe to Test" then choose your subscription payment level.
-- You don't need an API from themealdb.com.
+- You don't need an API key from themealdb.com.
 - Create a `.env` file in the root directory that looks like this:
   ```
   API_KEY = <your API key here>
@@ -37,13 +37,15 @@ Choose ingredients you have in your pantry. Our application also uses the Rest A
 
 ## Known Bugs
 
-- If ingredients are all de-selected too quickly, recipes remain on-page.
+- Certain ingredients such as "Clove", "Butter", "Cumin" do not return results.
 - If you click anywhere in line with the X on recipe sidebar, it closes the sidebar
 - When you only input 1 ingredient "beef", recipes containing both "beef" & "beef stock" say: "you have 2 out of \_\_\_ ingredients" even though you technically only have 1
+- Page sizing doesn't always work as intended. (Certain sections bleed over into other sections of the page)
+- Let us know if you find anymore!
 
 ## License
 
-MIT
+[ISC](https://opensource.org/licenses/ISC)
 
 ## Contact Information
 
