@@ -49,6 +49,5 @@ Choose ingredients you have in your pantry. Our application also uses the Rest A
 
 ## Contact Information
 
-Daniel Lindsey  
-https://github.com/dlinds  
-daniellindsey85254@gmail.com
+Tiffany Rodrigo 
+tiffa.rodrigs@gmail.com
